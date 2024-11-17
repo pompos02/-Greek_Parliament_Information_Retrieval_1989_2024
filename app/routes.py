@@ -1,6 +1,6 @@
 from flask import render_template, request, jsonify
-from . import db
-from sqlalchemy import text
+
+from sqlalchemy import text, create_engine
 import pickle
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -10,6 +10,14 @@ import re
 from nltk.corpus import stopwords
 import spacy
 from greek_stemmer import stemmer
+
+db_name = 'speeches'
+db_user = 'pompos02'            # Replace with your PostgreSQL username
+db_password = 'mypassword123'   # Replace with your PostgreSQL password
+db_host = 'localhost'
+db_port = '5432'
+engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
 
 def create_routes(app):
     # Load the TF-IDF components at startup
@@ -161,13 +169,14 @@ def create_routes(app):
             
             # Fetch speeches from database using SQLAlchemy
             sql_query = text("""
-                SELECT id, speech, speaker, date 
+                SELECT id, speech, member_name, sitting_date 
                 FROM speeches 
                 WHERE id = ANY(:speech_ids)
             """)
             
-            result = db.session.execute(sql_query, {'speech_ids': speech_ids_to_fetch})
-            speeches = result.mappings().all()
+            with engine.connect() as connection:
+                result = connection.execute(sql_query, {'speech_ids': speech_ids_to_fetch})
+                speeches = result.mappings().all()
             
             # Convert to dictionary for easier lookup
             speeches_dict = {speech['id']: speech for speech in speeches}
@@ -180,8 +189,8 @@ def create_routes(app):
                     final_results.append({
                         'id': int(speech['id']),
                         'speech': get_speech_excerpt(speech['speech']),
-                        'speaker': speech['speaker'],
-                        'date': speech['date'].strftime('%d/%m/%Y') if speech['date'] else None,
+                        'member_name': speech['member_name'],
+                        'sitting_date': speech['sitting_date'].strftime('%d/%m/%Y') if speech['sitting_date'] else None,
                         'score': result['similarity_score']
                     })
             
@@ -189,7 +198,13 @@ def create_routes(app):
             total_pages = (total_results + per_page - 1) // per_page
             has_next = page < total_pages
             has_prev = page > 1
-            
+
+            print(f"Query: {query}")
+            print(f"Processed Query: {processed_query}")
+            print(f"Top Indices: {top_indices[:10]}")  # Print first 10 indices for reference
+            print(f"Paginated Results: {paginated_results}")
+            print(f"Speech IDs to Fetch: {speech_ids_to_fetch}")
+
             return render_template('search.html',
                                 query=query,
                                 results=final_results,
