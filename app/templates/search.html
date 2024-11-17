@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Speeches</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Αναζήτηση Ομιλιών</h1>
+    <form action="/" method="get">
+        <input type="text" name="q" placeholder="Εισάγετε  λέξεις-κλειδιά..." value="{{ query }}" required>
+        <button type="submit">Αναζήτηση</button>
+    </form>
+
+    {% if results %}
+        <h2>Αποτελέσματα Αναζήτησης</h2>
+        <ul>
+            {% for result in results %}
+                <li>
+                    <strong>{{ result.member_name }}</strong> - {{ result.sitting_date }}<br>
+                    <em>{{ result.speech }}...</em><br>
+                    <span>Βαθμός Ομοιότητας: {{ '%.2f' | format(result.score) }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p>Δεν βρέθηκαν αποτελέσματα για "{{ query }}".</p>
+    {% endif %}
+</body>
+</html>

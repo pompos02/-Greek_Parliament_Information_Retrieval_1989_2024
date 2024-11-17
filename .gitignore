@@ -1,0 +1,9 @@
+tell_all_FILLED_FINAL.csv
+speech_ids.pkl
+tfidf_matrix.pkl
+tfidf_vectorizer.pkl
+__pycache__/compute_tfidf.cpython-310.pyc
+__pycache__/config.cpython-310.pyc
+app/__pycache__/__init__.cpython-310.pyc
+app/__pycache__/models.cpython-310.pyc
+app/__pycache__/routes.cpython-310.pyc
