@@ -11,3 +11,8 @@ preprocessed_chunks/
 myenv/Include/site/python3.10/greenlet/greenlet.h
 myenv/
 myenv/Lib/site-packages/distutils-precedence.pth
+__pycache__/compute_tfidf2.cpython-39.pyc
+__pycache__/config.cpython-39.pyc
+app/__pycache__/__init__.cpython-39.pyc
+app/__pycache__/models.cpython-39.pyc
+app/__pycache__/routes.cpython-39.pyc

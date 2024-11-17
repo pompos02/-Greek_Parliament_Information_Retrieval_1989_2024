@@ -62,8 +62,8 @@ def preprocess_documents_chunk(texts, nlp, greek_stopwords, UNWANTED_PATTERN, TA
 
 def main():
     # Download necessary NLTK data
-    #nltk.download('stopwords')
-    #nltk.download('punkt')
+    nltk.download('stopwords')
+    nltk.download('punkt')
 
     # Greek stopwords
     greek_stopwords = set(stopwords.words('greek'))

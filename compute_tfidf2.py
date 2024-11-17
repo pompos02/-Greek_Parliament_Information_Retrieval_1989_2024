@@ -93,7 +93,7 @@ def main():
     total_records_df = pd.read_sql_query(count_query, con=engine)
     total_records = total_records_df.iloc[0, 0]  # 1,354,685
 
-    chunksize = 10000  # Reduced from 10,000
+    chunksize = 5000  # Reduced from 10,000
     total_chunks = (total_records // chunksize) + 1
 
     # Load speeches from the database in chunks
@@ -118,6 +118,8 @@ def main():
     reader = pd.read_sql_query(query, con=engine, chunksize=chunksize)
     chunk_number = 0
     for chunk in reader:
+        # Remove rows where 'speech' is None or NaN
+        chunk = chunk.dropna(subset=['speech'])
         # Extract 'id's and 'speech's
         ids = chunk['id'].tolist()
         speeches = chunk['speech'].tolist()
@@ -131,7 +133,7 @@ def main():
             TAB_PATTERN=TAB_PATTERN,
             stemmer=stemmer,
             batch_size=1000,    # Further reduced
-            n_process=6        # Set to 1 to reduce memory usage
+            n_process=2       # Set to 1 to reduce memory usage
         ))
 
         # Create a DataFrame for the preprocessed chunk
