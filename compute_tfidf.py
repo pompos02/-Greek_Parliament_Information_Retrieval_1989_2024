@@ -9,10 +9,11 @@ import string
 from greek_stemmer import stemmer  # Correctly import the Stemmer class
 import spacy
 import re
+from tqdm import tqdm
 
 nltk.download('stopwords')
 nltk.download('punkt')
-
+tqdm.pandas()
 # Greek stopwords
 greek_stopwords = set(stopwords.words('greek'))
 
@@ -103,17 +104,20 @@ engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port
 # Load speeches from the database
 df = pd.read_sql('SELECT id, speech FROM speeches', con=engine)
 
+print("preprocessing...")
 # Apply the preprocessing function
-df['preprocessed_speech'] = df['speech'].apply(preprocess_text)
+df['preprocessed_speech'] = df['speech'].progress_apply(preprocess_text)
 
+print("Initializa Vectorizer")
 # Initialize TfidfVectorizer using preprocessed text
 vectorizer = TfidfVectorizer(
     max_features=10000,         # Limit vocabulary size to top 10,000 terms
     lowercase=False             # Lowercasing already handled in preprocessing
 )
 
+print("fit_transform")
 tfidf_matrix = vectorizer.fit_transform(df['preprocessed_speech'])
-
+print("saving!!")
 # Save the vectorizer and TF-IDF matrix to disk
 with open('tfidf_vectorizer.pkl', 'wb') as f:
     pickle.dump(vectorizer, f)
