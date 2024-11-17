@@ -7,3 +7,7 @@ __pycache__/config.cpython-310.pyc
 app/__pycache__/__init__.cpython-310.pyc
 app/__pycache__/models.cpython-310.pyc
 app/__pycache__/routes.cpython-310.pyc
+preprocessed_chunks/
+myenv/Include/site/python3.10/greenlet/greenlet.h
+myenv/
+myenv/Lib/site-packages/distutils-precedence.pth
