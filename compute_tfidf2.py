@@ -98,7 +98,7 @@ def main():
 
     # Load speeches from the database in chunks
     print("Loading data from the database...")
-    query = 'SELECT id, speech FROM speeches'
+    query = 'SELECT id, speech FROM speeches ORDER BY id ASC' 
 
     # Initialize TfidfVectorizer
     print("Initializing TfidfVectorizer...")

@@ -34,6 +34,7 @@
                         <p><strong>Date:</strong> {{ result.sitting_date }}</p>
                         <p><strong>Speech:</strong> {{ result.speech }}</p>
                         <p><strong>Relevance Score:</strong> {{ result.score }}</p>
+                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}">View Full Speech</a>
                     </li>
                 {% endfor %}
             </ul>

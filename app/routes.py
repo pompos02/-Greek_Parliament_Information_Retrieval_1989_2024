@@ -23,13 +23,13 @@ def create_routes(app):
     # Load the TF-IDF components at startup
     def load_tfidf_components():
         try:
-            with open('tfidf_vectorizer.pkl', 'rb') as f:
+            with open('pkl_files/tfidf_vectorizer.pkl', 'rb') as f:
                 vectorizer = pickle.load(f)
             
-            with open('tfidf_matrix.pkl', 'rb') as f:
+            with open('pkl_files/tfidf_matrix.pkl', 'rb') as f:
                 tfidf_matrix = pickle.load(f)
             
-            with open('speech_ids.pkl', 'rb') as f:
+            with open('pkl_files/speech_ids.pkl', 'rb') as f:
                 speech_ids = pickle.load(f)
                 
             return vectorizer, tfidf_matrix, speech_ids
@@ -169,7 +169,7 @@ def create_routes(app):
             
             # Fetch speeches from database using SQLAlchemy
             sql_query = text("""
-                SELECT id, speech, member_name, sitting_date , political_party
+                SELECT id, speech, member_name, sitting_date , political_party,parliamentary_period,parliamentary_session,parliamentary_sitting
                 FROM speeches 
                 WHERE id = ANY(:speech_ids)
             """)
@@ -190,7 +190,12 @@ def create_routes(app):
                     'id': int(speech['id']),
                     'speech': get_speech_excerpt(speech['speech']),
                     'member_name': speech['member_name'] or 'Unknown',
-                    'sitting_date': speech['sitting_date'].strftime('%d/%m/%Y') if speech['sitting_date'] else None,
+                    'political_party': speech['political_party'],
+                    'score': result['similarity_score'],
+                    'parliamentary_period': speech['parliamentary_period'],  # Ensure these keys are added
+                    'parliamentary_session': speech['parliamentary_session'],
+                    'parliamentary_sitting': speech['parliamentary_sitting'],
+                    'sitting_date': speech['sitting_date'] if speech['sitting_date'] else None,
                     'political_party': speech['political_party'],
                     'score': result['similarity_score']
                 })
@@ -202,9 +207,6 @@ def create_routes(app):
 
             print(f"Query: {query}")
             print(f"Processed Query: {processed_query}")
-            print(f"Top Indices: {top_indices[:10]}")  # Print first 10 indices for reference
-            print(f"Paginated Results: {paginated_results}")
-            print(f"Speech IDs to Fetch: {speech_ids_to_fetch}")
 
             return render_template('search.html',
                                 query=query,
@@ -220,3 +222,36 @@ def create_routes(app):
             return render_template('search.html', 
                                 query=query,
                                 error='An error occurred while processing your search')
+        
+
+    @app.route('/merged_speech')
+    def view_merged_speech():
+        # Get parameters from the URL
+        period = request.args.get('period')
+        session = request.args.get('session')
+        sitting = request.args.get('sitting')
+        date = request.args.get('date')
+        print(f"Parameters - Period: {period}, Session: {session}, Sitting: {sitting}, Date: {date}")
+
+        try:
+            # Fetch the merged speech from the merged_speeches table
+            sql_query = text("""
+                SELECT parliamentary_period, parliamentary_session, parliamentary_sitting, sitting_date, merged_speech
+                FROM merged_speeches
+                WHERE parliamentary_period = :period
+                AND parliamentary_session = :session
+                AND parliamentary_sitting = :sitting
+                AND sitting_date = :date
+            """)
+            
+            with engine.connect() as connection:
+                result = connection.execute(sql_query, {'period': period, 'session': session, 'sitting': sitting, 'date': date})
+                merged_speech = result.fetchone()
+
+            if merged_speech:
+                return render_template('merged_speech.html', speech=merged_speech)
+            else:
+                return render_template('merged_speech.html', error="No merged speech found for the provided parameters.")
+        except Exception as e:
+            print(f"Error fetching merged speech: {e}")
+            return render_template('merged_speech.html', error="An error occurred while retrieving the merged speech.")
