@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +36,8 @@
                         <p><strong>Date:</strong> {{ result.sitting_date }}</p>
                         <p><strong>Speech:</strong> {{ result.speech }}</p>
                         <p><strong>Relevance Score:</strong> {{ result.score }}</p>
-                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}">View Full Speech</a>
+                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}&member_name={{ result.member_name | urlencode }}">View Full Speech</a>
+
                     </li>
                 {% endfor %}
             </ul>

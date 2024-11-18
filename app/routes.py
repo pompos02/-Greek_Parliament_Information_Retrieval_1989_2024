@@ -231,21 +231,23 @@ def create_routes(app):
         session = request.args.get('session')
         sitting = request.args.get('sitting')
         date = request.args.get('date')
+        member_name = request.args.get('member_name')
         print(f"Parameters - Period: {period}, Session: {session}, Sitting: {sitting}, Date: {date}")
 
         try:
             # Fetch the merged speech from the merged_speeches table
             sql_query = text("""
-                SELECT parliamentary_period, parliamentary_session, parliamentary_sitting, sitting_date, merged_speech
+                SELECT member_name, parliamentary_period, parliamentary_session, parliamentary_sitting, sitting_date, merged_speech
                 FROM merged_speeches
                 WHERE parliamentary_period = :period
                 AND parliamentary_session = :session
                 AND parliamentary_sitting = :sitting
                 AND sitting_date = :date
+                AND member_name LIKE :member_name
             """)
             
             with engine.connect() as connection:
-                result = connection.execute(sql_query, {'period': period, 'session': session, 'sitting': sitting, 'date': date})
+                result = connection.execute(sql_query, {'period': period, 'session': session, 'sitting': sitting, 'date': date,'member_name': member_name})
                 merged_speech = result.fetchone()
 
             if merged_speech:

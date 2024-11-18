@@ -38,11 +38,13 @@ if not invalid_dates.empty:
 else:
     print("No corrupted dates found.")
 
+#NOMIZW EN DULEFKEI, DIMIURGA TO merged_speeches POU TO pgADMIN
 # Drop 'merged_speeches' table if it exists and recreate it
 drop_table_sql = "DROP TABLE IF EXISTS merged_speeches;"
 create_table_sql = """
 CREATE TABLE merged_speeches AS
 SELECT
+    member_name,
     parliamentary_period,
     parliamentary_session,
     parliamentary_sitting,
@@ -52,6 +54,7 @@ SELECT
 FROM
     speeches
 GROUP BY
+    member_name,
     parliamentary_period,
     parliamentary_session,
     parliamentary_sitting,
