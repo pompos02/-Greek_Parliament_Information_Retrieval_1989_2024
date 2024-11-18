@@ -1,89 +1,53 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Αναζήτηση Ομιλιών</h1>
-
-    <!-- Search Form -->
-    <form action="{{ url_for('search') }}" method="get" class="mb-8">
-        <div class="flex gap-4">
-            <input type="text" 
-                   name="q" 
-                   value="{{ query or '' }}"
-                   placeholder="Εισάγετε λέξεις-κλειδιά..."
-                   class="flex-1 p-3 border rounded-lg shadow-sm"
-                   required>
-            <button type="submit" 
-                    class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                Αναζήτηση
-            </button>
-        </div>
-    </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Search Results</title>
+    <link rel="stylesheet" href="/static/styles.css"> <!-- Optional, customize as needed -->
+</head>
+<body>
+    <header>
+        <h1>Speech Search Results</h1>
+        <form action="/search" method="get">
+            <input type="text" name="q" value="{{ query }}" placeholder="Enter search term...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
 
     {% if error %}
-    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8" role="alert">
-        <p>{{ error }}</p>
-    </div>
+        <div class="error">{{ error }}</div>
     {% endif %}
 
-    {% if results %}
-        <!-- Results Stats -->
-        <div class="mb-6 text-gray-600">
-            Βρέθηκαν {{ total_results }} αποτελέσματα για "{{ query }}"
-        </div>
+    {% if no_results %}
+        <div class="no-results">No results found for "{{ query }}"</div>
+    {% else %}
+        <div class="results">
+            <p>Showing results for: <strong>{{ query }}</strong></p>
+            <p>Total results found: {{ total_results }}</p>
 
-        <!-- Results List -->
-        <div class="space-y-8">
-            {% for result in results %}
-            <div class="bg-white p-6 rounded-lg shadow">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900">{{ result.speaker }}</h3>
-                        {% if result.date %}
-                        <p class="text-gray-600">{{ result.date }}</p>
-                        {% endif %}
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                        {{ "%.2f"|format(result.score) }}
-                    </span>
-                </div>
-                <p class="text-gray-700 leading-relaxed mb-4">{{ result.speech }}</p>
-                <div class="flex justify-end">
-                    <a href="#" class="text-blue-600 hover:text-blue-800">Πλήρες Κείμενο →</a>
-                </div>
+            <ul class="result-list">
+                {% for result in results %}
+                    <li class="result-item">
+                        <h3><strong>Member Name:</strong> {{ result.member_name }}</h3>
+                        <p><strong>Political Party:</strong> {{ result.political_party }}</p>
+                        <p><strong>Date:</strong> {{ result.sitting_date }}</p>
+                        <p><strong>Speech:</strong> {{ result.speech }}</p>
+                        <p><strong>Relevance Score:</strong> {{ result.score }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="pagination">
+                {% if has_prev %}
+                    <a href="/search?q={{ query }}&page={{ page - 1 }}&per_page={{ per_page }}" class="prev">Previous</a>
+                {% endif %}
+                <span>Page {{ page }} of {{ total_pages }}</span>
+                {% if has_next %}
+                    <a href="/search?q={{ query }}&page={{ page + 1 }}&per_page={{ per_page }}" class="next">Next</a>
+                {% endif %}
             </div>
-            {% endfor %}
-        </div>
-
-        <!-- Pagination -->
-        {% if total_pages > 1 %}
-        <div class="flex justify-center items-center space-x-4 mt-8">
-            {% if has_prev %}
-            <a href="{{ url_for('search', q=query, page=page-1) }}" 
-               class="px-4 py-2 border rounded hover:bg-gray-100">
-                &larr; Προηγούμενη
-            </a>
-            {% endif %}
-            
-            <span class="text-gray-600">
-                Σελίδα {{ page }} από {{ total_pages }}
-            </span>
-            
-            {% if has_next %}
-            <a href="{{ url_for('search', q=query, page=page+1) }}" 
-               class="px-4 py-2 border rounded hover:bg-gray-100">
-                Επόμενη &rarr;
-            </a>
-            {% endif %}
-        </div>
-        {% endif %}
-
-    {% elif query and not results %}
-        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-            <p class="text-yellow-700">
-                Δεν βρέθηκαν αποτελέσματα για "{{ query }}".
-            </p>
         </div>
     {% endif %}
-</div>
-{% endblock %}
+</body>
+</html>

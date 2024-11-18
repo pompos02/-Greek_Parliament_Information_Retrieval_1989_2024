@@ -169,7 +169,7 @@ def create_routes(app):
             
             # Fetch speeches from database using SQLAlchemy
             sql_query = text("""
-                SELECT id, speech, member_name, sitting_date 
+                SELECT id, speech, member_name, sitting_date , political_party
                 FROM speeches 
                 WHERE id = ANY(:speech_ids)
             """)
@@ -187,12 +187,13 @@ def create_routes(app):
                 speech = speeches_dict.get(result['speech_id'])
                 if speech:
                     final_results.append({
-                        'id': int(speech['id']),
-                        'speech': get_speech_excerpt(speech['speech']),
-                        'member_name': speech['member_name'],
-                        'sitting_date': speech['sitting_date'].strftime('%d/%m/%Y') if speech['sitting_date'] else None,
-                        'score': result['similarity_score']
-                    })
+                    'id': int(speech['id']),
+                    'speech': get_speech_excerpt(speech['speech']),
+                    'member_name': speech['member_name'] or 'Unknown',
+                    'sitting_date': speech['sitting_date'].strftime('%d/%m/%Y') if speech['sitting_date'] else None,
+                    'political_party': speech['political_party'],
+                    'score': result['similarity_score']
+                })
             
             # Calculate pagination info
             total_pages = (total_results + per_page - 1) // per_page
