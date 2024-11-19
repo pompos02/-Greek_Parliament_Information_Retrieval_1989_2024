@@ -1,16 +1,149 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Georgia', serif;
     margin: 0;
     padding: 0;
-}
-#tripla
-header {
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+    background-color: #f9f9f9;
+    color: #333;
+    background-image: linear-gradient(to bottom, #f4f4f4, #e9ecef);
 }
 
-main {
+.header-u{
+    font-family: 'Times New Roman', serif;
+    background-color: #0d6efd;
+    color: white;
+    padding: 1.3rem;
+    text-align: center;
+    border-bottom: 5px solid #0044cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 3px solid #0044cc;
+    padding: 0 1rem;
+}
+
+.header-u::before,
+.header-u::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-image: url('/static/meandre.png');
+    background-size: contain;
+
+    z-index: 0;
+}
+
+.header-u::before {
+    left: 10px;
+}
+.header-u::after {
+    right: 10px;
+}
+
+.home-container {
+    text-align: center;
+    margin: 3rem auto;
+    background-color: white;
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 3px solid #0044cc;
+}
+
+.search-button {
+    display: inline-block;
+    background-color: #0d6efd;
+    color: white;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-button:hover {
+    background-color: #0044cc;
+    transform: translateY(-3px);
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #0d6efd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.search-input {
+    width: 70%;
+    padding: 0.8rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-submit {
+    background-color: #white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-submit:hover {
+    transform: translateY(-2px);
+}
+
+.results .result-item {
+    margin: 1rem 0;
     padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fefefe;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.results .result-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.results .result-item p {
+    margin: 0.5rem 0;
+}
+
+.view-full-speech {
+    display: inline-block;
+    color: #0d6efd;
+    text-decoration: none;
+    margin-top: 0.5rem;
+}
+
+.view-full-speech:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #0d6efd;
+    color: white;
+    margin-top: 2rem;
+    border-top: 5px solid #0044cc;
+    font-family: 'Georgia', serif;
+    font-size: 0.9rem;
+    border-top: 3px solid #0044cc;
 }

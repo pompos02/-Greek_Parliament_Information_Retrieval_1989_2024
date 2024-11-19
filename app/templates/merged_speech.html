@@ -1,27 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merged Speech</title>
-    <link rel="stylesheet" href="/static/styles.css"> <!-- Optional, customize as needed -->
-</head>
-<body>
-    <header>
-        <h1>Merged Speech</h1>
-        <a href="/">Back to Search</a>
-    </header>
+{% extends 'base.html' %}
 
-    {% if error %}
-        <div class="error">{{ error }}</div>
-    {% else %}
-        <div class="merged-speech">
-            <p><strong>Parliamentary Period:</strong> {{ speech.parliamentary_period }}</p>
-            <p><strong>Parliamentary Session:</strong> {{ speech.parliamentary_session }}</p>
-            <p><strong>Parliamentary Sitting:</strong> {{ speech.parliamentary_sitting }}</p>
-            <p><strong>Date:</strong> {{ speech.sitting_date }}</p>
-            <p><strong>Merged Speech:</strong> {{ speech.merged_speech }}</p>
-        </div>
-    {% endif %}
-</body>
-</html>
+{% block content %}
+{% if error %}
+    <div class="error">{{ error }}</div>
+{% else %}
+    <h2>Merged Speech Details</h2>
+    <p><strong>Parliamentary Period:</strong> {{ speech.parliamentary_period }}</p>
+    <p><strong>Parliamentary Session:</strong> {{ speech.parliamentary_session }}</p>
+    <p><strong>Parliamentary Sitting:</strong> {{ speech.parliamentary_sitting }}</p>
+    <p><strong>Date:</strong> {{ speech.sitting_date }}</p>
+    <p><strong>Speech:</strong></p>
+    <p>{{ speech.merged_speech }}</p>
+{% endif %}
+<a href="/search" class="back-link">Back to Search</a>
+{% endblock %}

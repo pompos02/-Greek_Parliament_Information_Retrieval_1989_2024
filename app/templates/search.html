@@ -1,19 +1,12 @@
-from urllib.parse import quote
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speech Search Results</title>
-    <link rel="stylesheet" href="/static/styles.css"> <!-- Optional, customize as needed -->
-</head>
-<body>
+{% block content %}
+<div class="search-container">
     <header>
-        <h1>Speech Search Results</h1>
+        <h1>Search Speeches</h1>
         <form action="/search" method="get">
-            <input type="text" name="q" value="{{ query }}" placeholder="Enter search term...">
-            <button type="submit">Search</button>
+            <input type="text" name="q" value="{{ query }}" placeholder="Enter search term..." class="search-input">
+            <button type="submit" class="search-submit">Search</button>
         </form>
     </header>
 
@@ -36,8 +29,7 @@ from urllib.parse import quote
                         <p><strong>Date:</strong> {{ result.sitting_date }}</p>
                         <p><strong>Speech:</strong> {{ result.speech }}</p>
                         <p><strong>Relevance Score:</strong> {{ result.score }}</p>
-                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}&member_name={{ result.member_name | urlencode }}">View Full Speech</a>
-
+                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}&member_name={{ result.member_name | urlencode }}" class="view-full-speech">View Full Speech</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -53,5 +45,5 @@ from urllib.parse import quote
             </div>
         </div>
     {% endif %}
-</body>
-</html>
+</div>
+{% endblock %}

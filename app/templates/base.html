@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static',  filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to the Greek Parliament Speeches App</h1>
+    <header class="header-u">
+        <h1>GREEK PARLIAMENT SPEECHES</h1>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
+    <footer>
+        <p>&copy; 2024 Iasonas Marinopoulos & Yiannis Karavellas</p>
+    </footer>
 </body>
 </html>
