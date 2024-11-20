@@ -20,3 +20,5 @@ Merged
 pkl_backup/.DS_Store
 pkl_files/.DS_Store
 .DS_Store
+output/member_keyword_trends_over_time.csv
+output/party_keyword_trends_over_time.csv
