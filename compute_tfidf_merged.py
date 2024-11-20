@@ -1,16 +1,15 @@
-import pandas as pd
+import pandas as pd # type: ignore
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy import create_engine
 import pickle
-import nltk
 from nltk.corpus import stopwords
 import unicodedata
 import re
-from greek_stemmer import stemmer  # Ensure this is correctly installed and imported
-import spacy
+from greek_stemmer import stemmer  # type: ignore # Ensure this is correctly installed and imported
+import spacy # type: ignore
 from tqdm import tqdm
-import multiprocessing
 import os
+from db import get_db
 
 def remove_accents(text):
     """Remove accents from Greek words."""
@@ -86,19 +85,19 @@ def main():
     db_password = 'mypassword123'   # Replace with your PostgreSQL password
     db_host = 'localhost'
     db_port = '5432'
-    engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+    engine = get_db
 
     # Count total records to set tqdm's total parameter
     count_query = 'SELECT COUNT(*) FROM merged_speeches'
     total_records_df = pd.read_sql_query(count_query, con=engine)
     total_records = total_records_df.iloc[0, 0]  # 1,354,685
 
-    chunksize = 5000  # Reduced from 10,000
+    chunksize = 100  # Reduced from 10,000
     total_chunks = (total_records // chunksize) + 1
 
     # Load speeches from the database in chunks
     print("Loading data from the database...")
-    query = 'SELECT id, merged_speech FROM merged_speeches ORDER BY id ASC' 
+    query = 'SELECT id, merged_speech FROM merged_speeches ORDER BY sitting_date ASC' 
 
     # Initialize TfidfVectorizer
     print("Initializing TfidfVectorizer...")
@@ -132,7 +131,7 @@ def main():
             UNWANTED_PATTERN=UNWANTED_PATTERN,
             TAB_PATTERN=TAB_PATTERN,
             stemmer=stemmer,
-            batch_size=1000,    # Further reduced
+            batch_size=25,    # Further reduced
             n_process=2       # Set to 1 to reduce memory usage
         ))
 

@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd # type: ignore
 from sqlalchemy import create_engine, text
 import csv
 
@@ -44,6 +44,7 @@ drop_table_sql = "DROP TABLE IF EXISTS merged_speeches;"
 create_table_sql = """
 CREATE TABLE merged_speeches AS
 SELECT
+    ROW_NUMBER() OVER (ORDER BY member_name, parliamentary_period, parliamentary_session, parliamentary_sitting, sitting_date) AS id,
     member_name,
     parliamentary_period,
     parliamentary_session,

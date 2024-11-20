@@ -8,4 +8,4 @@ def get_db():
     db_host = 'localhost'
     db_port = '5432'
     engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
-    return db_name, db_user, db_password, db_host, db_port, engine
+    return engine

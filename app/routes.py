@@ -2,14 +2,12 @@ from flask import render_template, request, jsonify
 
 from sqlalchemy import text, create_engine
 import pickle
-import numpy as np
-from scipy.sparse import csr_matrix
 from sklearn.metrics.pairwise import cosine_similarity
 import unicodedata
 import re
 from nltk.corpus import stopwords
-import spacy
-from greek_stemmer import stemmer
+import spacy # type: ignore
+from greek_stemmer import stemmer # type: ignore
 
 db_name = 'speeches'
 db_user = 'pompos02'            # Replace with your PostgreSQL username
@@ -137,7 +135,7 @@ def create_routes(app):
             
             # Calculate similarity scores
             similarity_scores = cosine_similarity(query_vector, tfidf_matrix).flatten()
-            
+            print(tfidf_matrix.shape)
             # Get top matches above threshold
             threshold = 0.1
             top_indices = similarity_scores.argsort()[::-1]
@@ -169,8 +167,8 @@ def create_routes(app):
             
             # Fetch speeches from database using SQLAlchemy
             sql_query = text("""
-                SELECT id, speech, member_name, sitting_date , political_party,parliamentary_period,parliamentary_session,parliamentary_sitting
-                FROM speeches 
+                SELECT id, merged_speech, member_name, sitting_date , political_party,parliamentary_period,parliamentary_session,parliamentary_sitting
+                FROM merged_speeches 
                 WHERE id = ANY(:speech_ids)
             """)
             
@@ -188,7 +186,7 @@ def create_routes(app):
                 if speech:
                     final_results.append({
                     'id': int(speech['id']),
-                    'speech': get_speech_excerpt(speech['speech']),
+                    'merged_speech': get_speech_excerpt(speech['merged_speech']),
                     'member_name': speech['member_name'] or 'Unknown',
                     'political_party': speech['political_party'],
                     'score': result['similarity_score'],
@@ -196,8 +194,8 @@ def create_routes(app):
                     'parliamentary_session': speech['parliamentary_session'],
                     'parliamentary_sitting': speech['parliamentary_sitting'],
                     'sitting_date': speech['sitting_date'] if speech['sitting_date'] else None,
-                    'political_party': speech['political_party'],
-                    'score': result['similarity_score']
+
+
                 })
             
             # Calculate pagination info
