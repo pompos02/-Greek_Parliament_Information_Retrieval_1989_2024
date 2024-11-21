@@ -24,7 +24,7 @@ def load_tfidf_data():
 def get_top_keywords(tfidf_matrix, feature_names, top_n=10):
     COMMON_KEYWORDS = {
     "αυτ", "εινα", "της", "αυτ", "απο", "εν", "τους", "κυρι"
-    , "οτ", "δε", "απο","αλλ","εχ","λογ","μι","οποι"
+    , "οτ", "δε", "απο","αλλ","εχ","λογ","μι"
     # Add more common keywords you want to exclude
     }
 
@@ -92,31 +92,53 @@ def analyze_keywords(speech_data, extracted_keywords):
 
 
 # Track Keyword Changes Over Time
-def track_member_keyword_trends(df):
+def track_member_keyword_trends(df, member_keywords):
     df["sitting_year"] = pd.to_datetime(df["sitting_date"]).dt.year
 
     # Explode keywords for time-based analysis
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract word
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+
+    # Merge with top keywords to filter
+    exploded = exploded.merge(
+        member_keywords.apply(lambda x: [k for k, _ in x]).rename("top_keywords"),
+        left_on="member_name",
+        right_index=True
+    )
+
+    # Keep only rows where keyword is in top_keywords
+    exploded = exploded[exploded.apply(lambda row: row["keyword"] in row["top_keywords"], axis=1)]
 
     # Group by member, year, and keyword to sum scores
     member_keyword_trends = exploded.groupby(["member_name", "sitting_year", "keyword"])["score"].sum().reset_index()
 
     return member_keyword_trends
 
-def track_party_keyword_trends(df):
+
+def track_party_keyword_trends(df, party_keywords):
     df["sitting_year"] = pd.to_datetime(df["sitting_date"]).dt.year
 
     # Explode keywords for time-based analysis
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract word
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+
+    # Merge with top keywords to filter
+    exploded = exploded.merge(
+        party_keywords.apply(lambda x: [k for k, _ in x]).rename("top_keywords"),
+        left_on="political_party",
+        right_index=True
+    )
+
+    # Keep only rows where keyword is in top_keywords
+    exploded = exploded[exploded.apply(lambda row: row["keyword"] in row["top_keywords"], axis=1)]
 
     # Group by party, year, and keyword to sum scores
     party_keyword_trends = exploded.groupby(["political_party", "sitting_year", "keyword"])["score"].sum().reset_index()
 
     return party_keyword_trends
+
 
 # Visualize Keyword Trends
 def visualize_keyword_trends_trends(df_trends, group_by, title, plot_file):
@@ -186,12 +208,8 @@ def main():
         speech_data,
         columns=["id", "member_name", "political_party", "sitting_date"]
     )
+    print(feature_names)
 
-    # Align the speech data with the speech IDs
-    speech_data_df = speech_data_df[speech_data_df["id"].isin(speech_ids)]
-
-    # Sort speech_data_df by `id` to ensure it matches the TF-IDF matrix
-    speech_data_df = speech_data_df.set_index("id").loc[speech_ids].reset_index()
 
     # Extract top keywords
     extracted_keywords = get_top_keywords(tfidf_matrix, feature_names)
@@ -201,11 +219,18 @@ def main():
         speech_data_df.values, extracted_keywords
     )
 
+    print("Number of keywords per member:")
+    print(member_keywords.apply(len).head())
+
+    print("Number of keywords per party:")
+    print(party_keywords.apply(len).head())
+
+
     # 1. Track keyword trends over time for members
-    member_keyword_trends = track_member_keyword_trends(df)
+    member_keyword_trends = track_member_keyword_trends(df, member_keywords)
 
     # 2. Track keyword trends over time for parties
-    party_keyword_trends = track_party_keyword_trends(df)
+    party_keyword_trends = track_party_keyword_trends(df, party_keywords)
 
     # 3. Visualize Member Keyword Trends
     member_plot_file = "output/member_keyword_trends_over_time.png"

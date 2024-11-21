@@ -1,0 +1,43 @@
+import pickle
+import numpy as np
+from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import svds
+import os
+
+# Load the TF-IDF matrix
+with open("pkl_files/tfidf_matrix.pkl", "rb") as f:
+    tfidf_matrix = pickle.load(f)
+
+if not isinstance(tfidf_matrix, csr_matrix):
+    raise TypeError("TF-IDF matrix is not in a sparse format. Convert it to CSR or CSC before proceeding.")
+
+# Define maximum number of components to examine
+max_k = 300  # Choose a reasonably large k for analysis
+
+# Perform SVD with max_k components
+U, Sigma, VT = svds(tfidf_matrix, k=max_k, which='LM')
+
+# Reverse the order of singular values (svds gives smallest first)
+Sigma = Sigma[::-1]
+
+# Compute variance explained by each singular value
+variance_explained = (Sigma ** 2) / np.sum(Sigma ** 2)
+cumulative_variance_explained = np.cumsum(variance_explained)
+
+# Display cumulative variance explained for different k values
+print("Cumulative Variance Explained by Different Numbers of Components:")
+for i, cumulative_variance in enumerate(cumulative_variance_explained, start=1):
+    print(f"Components: {i}, Cumulative Variance Explained: {cumulative_variance:.2%}")
+
+# Optional: Save the variance explained for plotting or further analysis
+output_folder = "output"
+os.makedirs(output_folder, exist_ok=True)
+output_file = f"{output_folder}/variance_explained.csv"
+
+import pandas as pd
+variance_df = pd.DataFrame({
+    "Components": np.arange(1, max_k + 1),
+    "Cumulative Variance Explained": cumulative_variance_explained
+})
+variance_df.to_csv(output_file, index=False)
+print(f"Saved variance analysis to {output_file}")

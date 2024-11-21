@@ -22,3 +22,9 @@ pkl_files/.DS_Store
 .DS_Store
 output/member_keyword_trends_over_time.csv
 output/party_keyword_trends_over_time.csv
+output/member_keyword_trends_over_time.png
+output/party_keyword_trends_over_time.png
+__pycache__/db.cpython-310.pyc
+output/lsi_concepts.txt
+pkl_files/lsi_vectors.pkl
+output/variance_explained.csv
