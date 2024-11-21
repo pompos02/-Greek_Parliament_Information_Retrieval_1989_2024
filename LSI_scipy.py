@@ -12,7 +12,7 @@ if not isinstance(tfidf_matrix, csr_matrix):
     raise TypeError("TF-IDF matrix is not in a sparse format. Convert it to CSR or CSC before proceeding.")
 
 # 260 based on the output of variance_explained.csv
-n_components = 10  # Define the number of themes
+n_components = 100  # Define the number of themes
 U, Sigma, VT = svds(tfidf_matrix, k=n_components)
 
 # Reverse the order of components (svds gives smallest components first)
