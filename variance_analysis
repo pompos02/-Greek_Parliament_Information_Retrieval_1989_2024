@@ -12,7 +12,7 @@ if not isinstance(tfidf_matrix, csr_matrix):
     raise TypeError("TF-IDF matrix is not in a sparse format. Convert it to CSR or CSC before proceeding.")
 
 # Define maximum number of components to examine
-max_k = 300  # Choose a reasonably large k for analysis
+max_k = 150  # Choose a reasonably large k for analysis
 
 # Perform SVD with max_k components
 U, Sigma, VT = svds(tfidf_matrix, k=max_k, which='LM')
@@ -20,24 +20,17 @@ U, Sigma, VT = svds(tfidf_matrix, k=max_k, which='LM')
 # Reverse the order of singular values (svds gives smallest first)
 Sigma = Sigma[::-1]
 
-# Compute variance explained by each singular value
-variance_explained = (Sigma ** 2) / np.sum(Sigma ** 2)
-cumulative_variance_explained = np.cumsum(variance_explained)
+# Analyze variance explained
+explained_variance_ratio = Sigma**2 / np.sum(Sigma**2)
+cumulative_variance = np.cumsum(explained_variance_ratio)
 
-# Display cumulative variance explained for different k values
-print("Cumulative Variance Explained by Different Numbers of Components:")
-for i, cumulative_variance in enumerate(cumulative_variance_explained, start=1):
-    print(f"Components: {i}, Cumulative Variance Explained: {cumulative_variance:.2%}")
+# Plot cumulative variance
+import matplotlib.pyplot as plt
 
-# Optional: Save the variance explained for plotting or further analysis
-output_folder = "output"
-os.makedirs(output_folder, exist_ok=True)
-output_file = f"{output_folder}/variance_explained.csv"
-
-import pandas as pd
-variance_df = pd.DataFrame({
-    "Components": np.arange(1, max_k + 1),
-    "Cumulative Variance Explained": cumulative_variance_explained
-})
-variance_df.to_csv(output_file, index=False)
-print(f"Saved variance analysis to {output_file}")
+plt.plot(range(1, len(Sigma) + 1), cumulative_variance, marker='o')
+plt.axhline(y=0.9, color='r', linestyle='--', label='90% Variance Explained')
+plt.xlabel('Number of Themes')
+plt.ylabel('Cumulative Variance Explained')
+plt.title('Cumulative Variance Explained by LSI Components')
+plt.legend()
+plt.show()
