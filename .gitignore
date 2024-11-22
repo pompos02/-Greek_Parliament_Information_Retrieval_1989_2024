@@ -34,3 +34,10 @@ output/best_speeches_per_cluster_lsi.txt
 output/best_speeches_per_cluster_nmf.txt
 output/nmf_concepts.txt
 pkl_files/nmf_vectors.pkl
+output/keyword_trends_overall.csv
+output/member_keyword_trends_over_time.png
+output/member_keyword_trends_over_time.png
+output/party_keyword_trends_over_time.png
+output/top_keywords_overall_trends.png
+output/top_keywords_overall.csv
+output/top_keywords_per_year.csv

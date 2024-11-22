@@ -66,7 +66,6 @@ for cluster in np.unique(clusters):
     best_speeches_per_cluster[cluster] = df.loc[best_2_indices, 'speech_id'].values
 
 
-# Assuming you have a 'speeches' table with an 'id' column
 query = text("""
     SELECT id, member_name, sitting_date, political_party,roles, merged_speech 
     FROM merged_speeches 
