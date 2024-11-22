@@ -29,3 +29,4 @@ output/lsi_concepts.txt
 pkl_files/lsi_vectors.pkl
 output/variance_explained.csv
 __pycache__/db.cpython-39.pyc
+output/best_speeches_per_cluster.txt

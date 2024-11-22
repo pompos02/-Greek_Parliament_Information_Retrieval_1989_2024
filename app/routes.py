@@ -8,13 +8,10 @@ import re
 from nltk.corpus import stopwords
 import spacy # type: ignore
 from greek_stemmer import stemmer # type: ignore
+from db import get_db
 
-db_name = 'speeches'
-db_user = 'pompos02'            # Replace with your PostgreSQL username
-db_password = 'mypassword123'   # Replace with your PostgreSQL password
-db_host = 'localhost'
-db_port = '5432'
-engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
+engine = get_db()
 
 
 def create_routes(app):
