@@ -11,23 +11,23 @@ import seaborn as sns
 from umap import UMAP
 
 # Load LSI vectors and speech IDs
-with open("pkl_files/lsi_vectors.pkl", "rb") as f:
-    lsi_vectors = pickle.load(f)
+with open("pkl_files/nmf_vectors.pkl", "rb") as f:
+    nmf_vectors = pickle.load(f)
 
 with open("pkl_files/speech_ids.pkl", "rb") as f:
     speech_ids = pickle.load(f)
 
 # Normalize LSI vectors for better clustering
-lsi_vectors_normalized = normalize(lsi_vectors)
+nmf_vectors_normalized = normalize(nmf_vectors)
 
 # Path to save and load the KMeans labels
 labels_file = "pkl_files/Kmeans_labels.pkl"
 
 
-    # Define K-Means parameters
-n_clusters = 50
+# Define K-Means parameters
+n_clusters = 70
 mbk = KMeans(n_clusters=n_clusters, random_state=42, n_init='auto')
-mbk.fit(lsi_vectors_normalized)
+mbk.fit(nmf_vectors_normalized)
 
 # Save the labels and cluster centers to a pickle file
 clusters = mbk.labels_
@@ -35,7 +35,7 @@ cluster_centers = mbk.cluster_centers_
 
 # Optionally compute silhouette score
 sample_size = 10000
-sil_score = silhouette_score(lsi_vectors_normalized, clusters, metric='cosine', sample_size=sample_size, random_state=42)
+sil_score = silhouette_score(nmf_vectors_normalized, clusters, metric='cosine', sample_size=sample_size, random_state=42)
 print(f"Silhouette Score={sil_score:.4f}")
 
 
@@ -57,7 +57,7 @@ for cluster in np.unique(clusters):
     cluster_center = mbk.cluster_centers_[cluster]
     
     # Calculate distances from the cluster center (using cosine distance)
-    distances = np.linalg.norm(lsi_vectors_normalized[cluster_indices] - cluster_center, axis=1)
+    distances = np.linalg.norm(nmf_vectors_normalized[cluster_indices] - cluster_center, axis=1)
     
     # Find the indices of the two smallest distances (best 2 speeches)
     best_2_indices = cluster_indices[np.argsort(distances)[:2]]
@@ -84,7 +84,7 @@ with engine.connect() as connection:
 speech_details = pd.DataFrame(result.fetchall(), columns=['id', 'member_name', 'sitting_date','political_party','roles','speech'])
 
 # Write results to a text file
-output_file = "output/best_speeches_per_cluster_lsi.txt"
+output_file = "output/best_speeches_per_cluster_nmf.txt"
 with open(output_file, "w", encoding="utf-8") as file:
     for cluster, speech_ids in best_speeches_per_cluster.items():
         file.write(f"Cluster {cluster}:\n")
@@ -102,7 +102,7 @@ with open(output_file, "w", encoding="utf-8") as file:
 print(f"Results saved to {output_file}")
 
 umap_reducer = UMAP(n_components=3, random_state=42)
-lsi_vectors_3d = umap_reducer.fit_transform(lsi_vectors_normalized)
+lsi_vectors_3d = umap_reducer.fit_transform(nmf_vectors_normalized)
 
 # Create a DataFrame for visualization
 visualization_df = pd.DataFrame({
