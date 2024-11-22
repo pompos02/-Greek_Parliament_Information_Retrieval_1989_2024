@@ -28,3 +28,4 @@ __pycache__/db.cpython-310.pyc
 output/lsi_concepts.txt
 pkl_files/lsi_vectors.pkl
 output/variance_explained.csv
+__pycache__/db.cpython-39.pyc

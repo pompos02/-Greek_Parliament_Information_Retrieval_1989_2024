@@ -11,3 +11,4 @@ flask
 matplotlib
 faiss-cpu
 hdbscan
+seaborn
