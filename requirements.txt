@@ -12,3 +12,6 @@ matplotlib
 faiss-cpu
 hdbscan
 seaborn
+umap
+tensorflow
+umap-learn
