@@ -5,9 +5,16 @@ import seaborn as sns
 import spacy
 import unicodedata
 from db import get_db
+from collections import Counter
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 # Function to remove accents from Greek text
 def remove_accents(text):
+    if not isinstance(text, str):
+        return ''
     return ''.join(
         char for char in unicodedata.normalize('NFD', text)
         if unicodedata.category(char) != 'Mn'
@@ -15,51 +22,57 @@ def remove_accents(text):
 
 # Establish database connection
 engine = get_db()
+logging.info('Database connection established.')
 
 # Load the data into a DataFrame
-df = pd.read_sql('SELECT * FROM merged_speeches LIMIT 10000', engine)
+df = pd.read_sql(
+    "SELECT * FROM merged_speeches WHERE political_party = 'λαικος συνδεσμος - χρυση αυγη'",
+    engine
+)
+logging.info(f'Data loaded with {len(df)} records.')
 
-# Load the lexicon with all polarity columns
+# Load the lexicon with all happiness columns
 lexicon = pd.read_csv('greek_sentiment_lexicon.tsv', sep='\t')
+logging.info(f'Lexicon loaded with {len(lexicon)} records.')
 
-# Preprocess the lexicon
-lexicon = lexicon[['Term', 'Polarity1', 'Comments1']]
+# Preprocess the lexicon: select relevant columns
+happiness_columns = ['Happiness1', 'Happiness2', 'Happiness3', 'Happiness4']
+lexicon = lexicon[['Term'] + happiness_columns + ['Comments1']]
+logging.info('Selected relevant columns from lexicon.')
 
-# Remove entries with ambiguous comments
-
-
-# Drop rows with missing Term or Polarity1
-lexicon = lexicon.dropna(subset=['Term', 'Polarity1'])
+# Drop rows with missing Term
+lexicon = lexicon.dropna(subset=['Term'])
+logging.info(f'Lexicon after dropping rows with missing Term: {len(lexicon)}.')
 
 # Remove accentuation from terms
 lexicon['Term'] = lexicon['Term'].apply(remove_accents)
+logging.info('Accentuation removed from lexicon terms.')
 
-# Define polarity to score mapping using Polarity1
-def polarity_to_score(polarity):
-    if polarity == 'POS':
-        return 1
-    elif polarity == 'NEG':
-        return -1
-    elif polarity == 'BOTH':
-        return 0
-    else:
-        return 0
+# Calculate the average happiness score across available columns
+lexicon['average_happiness'] = lexicon[happiness_columns].mean(axis=1, skipna=True)
 
-lexicon['score'] = lexicon['Polarity1'].apply(polarity_to_score)
+# Drop rows where average_happiness is NaN (i.e., all columns were undefined)
+lexicon = lexicon.dropna(subset=['average_happiness'])
+logging.info(f'Lexicon after calculating average happiness scores: {len(lexicon)}.')
 
-# Create sentiment dictionary
-sentiment_dict = dict(zip(lexicon['Term'], lexicon['score']))
+# Create happiness dictionary
+happiness_dict = dict(zip(lexicon['Term'], lexicon['average_happiness']))
+logging.info(f'Happiness dictionary created with {len(happiness_dict)} terms.')
 
 # Load Greek language model
 try:
     nlp = spacy.load('el_core_news_sm')
+    logging.info("SpaCy Greek model 'el_core_news_sm' loaded successfully.")
 except OSError:
-    print("SpaCy model 'el_core_news_sm' not found. Please install it using:")
-    print("python -m spacy download el_core_news_sm")
+    logging.error("SpaCy model 'el_core_news_sm' not found. Please install it using:")
+    logging.error("python -m spacy download el_core_news_sm")
     raise
 
 # Function to preprocess text: tokenize, lemmatize, remove punctuation and spaces, and remove accents
 def preprocess_text(text):
+    if not isinstance(text, str):
+        logging.warning('Non-string text encountered.')
+        return []
     try:
         doc = nlp(text)
         tokens = [
@@ -69,41 +82,47 @@ def preprocess_text(text):
         ]
         return tokens
     except Exception as e:
-        print(f"Error processing text: {e}")
+        logging.error(f"Error processing text: {e}")
         return []
 
-# Function to calculate sentiment score
-def calculate_sentiment(tokens, sentiment_dict):
+# Function to calculate happiness score
+def calculate_happiness(tokens, happiness_dict):
     score = 0
     count = 0
     for token in tokens:
-        if token in sentiment_dict:
-            score += sentiment_dict[token]
+        if token in happiness_dict:
+            score += happiness_dict[token]
             count += 1
     if count == 0:
         return 0
     return score / count
 
-# Apply preprocessing and sentiment calculation
+# Apply preprocessing and happiness calculation
+logging.info('Starting text preprocessing and happiness calculation...')
 df['tokens'] = df['merged_speech'].apply(preprocess_text)
-df['sentiment_score'] = df['tokens'].apply(lambda tokens: calculate_sentiment(tokens, sentiment_dict))
+df['happiness_score'] = df['tokens'].apply(lambda tokens: calculate_happiness(tokens, happiness_dict))
+logging.info('Text preprocessing and happiness calculation completed.')
 
-# Optional: Drop rows with missing 'political_party' or 'sentiment_score'
-df = df.dropna(subset=['political_party'])
+# Ensure 'sitting_date' is in datetime format
+df['sitting_date'] = pd.to_datetime(df['sitting_date'], errors='coerce')
 
-# Aggregate sentiment by political party
-party_sentiment = df.groupby('political_party')['sentiment_score'].mean().reset_index()
+# Extract the year from 'sitting_date'
+df['year'] = df['sitting_date'].dt.year
 
-# Sort parties by sentiment score for better visualization
-party_sentiment = party_sentiment.sort_values(by='sentiment_score', ascending=False)
+# Drop rows with missing or invalid years
+df = df.dropna(subset=['year'])
 
-# Visualize the results
-plt.figure(figsize=(14, 7))
-sns.barplot(data=party_sentiment, x='political_party', y='sentiment_score', palette='viridis')
-plt.title('Average Sentiment Score by Political Party', fontsize=16)
-plt.ylabel('Average Sentiment Score', fontsize=14)
-plt.xlabel('Political Party', fontsize=14)
-plt.xticks(rotation=45, ha='right', fontsize=12)
+# Group by year and calculate average happiness score
+happiness_trend = df.groupby('year')['happiness_score'].mean().reset_index()
+
+# Visualize the happiness trend over the years
+plt.figure(figsize=(12, 6))
+sns.lineplot(data=happiness_trend, x='year', y='happiness_score', marker='o')
+plt.title('Happiness Trend Over the Years', fontsize=16)
+plt.xlabel('Year', fontsize=14)
+plt.ylabel('Average Happiness Score', fontsize=14)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.tight_layout()
 plt.show()

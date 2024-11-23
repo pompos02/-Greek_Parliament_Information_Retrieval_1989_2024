@@ -1,83 +1,95 @@
 import pandas as pd
 import numpy as np
-from sqlalchemy import create_engine
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoModelForPreTraining, AutoModel, TextClassificationPipeline
-import torch
-from tqdm.auto import tqdm
 import matplotlib.pyplot as plt
 import seaborn as sns
+import spacy
+import unicodedata
 from db import get_db
+from collections import Counter
+import logging
 
-# Set up the device for GPU usage if available
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+def remove_accents(text):
+    if not isinstance(text, str):
+        return ''
+    return ''.join(
+        char for char in unicodedata.normalize('NFD', text)
+        if unicodedata.category(char) != 'Mn'
+    )
 
-# Step 1: Load Your Data
-# Replace with your actual database connection string and table name
-engine = get_db()
+# Function to determine if a comment is not highly ambiguous
+def is_not_highly_ambiguous(comment):
+    if isinstance(comment, str):
+        return 'highly ambiguous' not in comment.lower()
+    return True  # If not a string, consider it as not highly ambiguous
 
-# Load the data into a DataFrame
-df = pd.read_sql('SELECT * FROM merged_speeches', engine)
-
-
-
-# Load the tokenizer and model
-model_name = "pchatz/palobert-base-greek-social-media-sentiment-v2"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
-
-print(model.config)
-
-device = 0 if torch.cuda.is_available() else -1  # Use GPU if available
-sentiment_pipeline = TextClassificationPipeline(model=model, tokenizer=tokenizer, device=device, return_all_scores=True)
-
-# Define a function to get sentiment scores
-def get_sentiment(text):
-    try:
-        result = sentiment_pipeline(text[:512])  # Truncate text to 512 tokens if necessary
-        # The model outputs scores for each class; adjust according to your model's classes
-        # Assuming the classes are ['negative', 'neutral', 'positive']
-        scores = result[0]
-        scores_dict = {item['label']: item['score'] for item in scores}
-        return scores_dict
-    except Exception as e:
-        print(f"Error processing text: {e}")
-        return None
-
-# Apply the function to your DataFrame
-tqdm.pandas()
-df['sentiment_scores'] = df['merged_speech'].progress_apply(get_sentiment)
+# Define polarity to score mapping
+def polarity_to_score(polarity):
+    if polarity == 'POS':
+        return 1
+    elif polarity == 'NEG':
+        return -1
+    elif polarity == 'BOTH':
+        return 0
+    else:
+        return np.nan  # Use NaN for 'N/A' or undefined polarities
 
 
-# Specify the political party you're interested in
-target_party = 'ελληνικη λυση - κυριακος βελοπουλος'  # Replace with the actual party name
+lexicon = pd.read_csv('greek_sentiment_lexicon.tsv', sep='\t')
+logging.info(f'Lexicon loaded with {len(lexicon)} records.')
 
-# Filter the DataFrame
-df_party = df[df['political_party'] == target_party].copy()
+# Preprocess the lexicon: select relevant columns
+# Include all Polarity columns (assuming there are up to Polarity4)
+polarity_columns = ['Polarity1', 'Polarity2', 'Polarity3', 'Polarity4']
+lexicon = lexicon[['Term'] + polarity_columns + ['Comments1']]
+logging.info('Selected relevant columns from lexicon.')
 
-# Ensure there are sentiment scores
-df_party = df_party[df_party['sentiment_scores'].notnull()]
+# Apply the filter to exclude highly ambiguous terms
+lexicon = lexicon[
+    lexicon['Comments1'].isna() | lexicon['Comments1'].apply(is_not_highly_ambiguous)
+]
+logging.info(f'Lexicon filtered for ambiguity. Remaining terms: {len(lexicon)}.')
 
-# Assuming the sentiment labels are 'negative', 'neutral', 'positive'
-def extract_sentiment_label(scores_dict):
-    if scores_dict is None:
-        return None
-    return max(scores_dict, key=scores_dict.get)
+# Drop rows with missing Term
+lexicon = lexicon.dropna(subset=['Term'])
+logging.info(f'Lexicon after dropping rows with missing Term: {len(lexicon)}.')
 
-def extract_sentiment_score(scores_dict):
-    if scores_dict is None:
-        return None
-    return max(scores_dict.values())
+# Remove accentuation from terms
+lexicon['Term'] = lexicon['Term'].apply(remove_accents)
+logging.info('Accentuation removed from lexicon terms.')
 
-df_party['sentiment_label'] = df_party['sentiment_scores'].apply(extract_sentiment_label)
-df_party['sentiment_score'] = df_party['sentiment_scores'].apply(extract_sentiment_score)
+# Apply polarity_to_score to all polarity columns
+for col in polarity_columns:
+    lexicon[col] = lexicon[col].apply(polarity_to_score)
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+# Calculate the average sentiment score across available polarity columns
+lexicon['average_score'] = lexicon[polarity_columns].mean(axis=1, skipna=True)
 
-# Count of sentiment labels
-plt.figure(figsize=(8, 6))
-sns.countplot(x='sentiment_label', data=df_party)
-plt.title(f'Sentiment Distribution for {target_party}')
-plt.xlabel('Sentiment')
-plt.ylabel('Number of Speeches')
+# Alternatively, you can use majority voting or other aggregation methods
+# For simplicity, we'll use the average here
+
+# Drop rows where average_score is NaN (i.e., all polarity columns were 'N/A' or undefined)
+lexicon = lexicon.dropna(subset=['average_score'])
+logging.info(f'Lexicon after calculating average sentiment scores: {len(lexicon)}.')
+
+# Create sentiment dictionary
+sentiment_dict = dict(zip(lexicon['Term'], lexicon['average_score']))
+logging.info(f'Sentiment dictionary created with {len(sentiment_dict)} terms.')
+
+# Analyze sentiment dictionary balance
+sentiment_counts = Counter(sentiment_dict.values())
+logging.info(f'Sentiment dictionary counts: {sentiment_counts}')
+# Assuming sentiment_dict is already created
+sentiment_counts = Counter(sentiment_dict.values())
+
+# Convert to DataFrame for easier plotting
+sentiment_df = pd.DataFrame(list(sentiment_counts.items()), columns=['Sentiment_Score', 'Count'])
+
+# Plotting
+plt.figure(figsize=(10, 6))
+sns.barplot(data=sentiment_df, x='Sentiment_Score', y='Count', palette='Reds')
+plt.title('Distribution of Sentiment Scores in Sentiment Dictionary')
+plt.xlabel('Sentiment Score')
+plt.ylabel('Number of Terms')
+plt.xticks(rotation=45)
+plt.tight_layout()
 plt.show()
