@@ -2,6 +2,8 @@ import pickle
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+from sqlalchemy import text
+from db import get_db
 
 
 def load_pickle_files():
@@ -41,18 +43,38 @@ def get_top_k_similar_pairs(cosine_sim_matrix, speech_ids, k=10):
     return top_k_pairs
 
 
-def main(k):
-    vectorizer, tfidf_matrix, speech_ids = load_pickle_files()
+def get_political_parties(member_name):
+    """Fetch political parties for a given member name from the database."""
+    sql_query = text("""
+        SELECT DISTINCT political_party 
+        FROM merged_speeches
+        WHERE member_name = :member_name
+    """)
+    engine = get_db()
+    with engine.connect() as conn:
+        result = conn.execute(sql_query, {'member_name': member_name})
+        # Access the first element of the tuple for 'political_party'
+        parties = [row[0] for row in result]
+    return ', '.join(parties) if parties else "Unknown"
 
-    cosine_sim_matrix = cosine_similarity(tfidf_matrix)  # cosine similarity for all members (NxN matrix)
 
-    top_k_pairs = get_top_k_similar_pairs(cosine_sim_matrix, speech_ids, k)
-
-    print(f"Top {k} most similar pairs:")
-    for idx, similarity in top_k_pairs.items():
-        member1, member2 = idx
-        print(f"Members: {member1} - {member2}, Similarity: {similarity:.4f}")
-
-
-if __name__ == "__main__":
-    main(k=10)
+# def main(k):
+#     vectorizer, tfidf_matrix, speech_ids = load_pickle_files()
+#
+#     cosine_sim_matrix = cosine_similarity(tfidf_matrix)  # cosine similarity for all members (NxN matrix)
+#
+#     top_k_pairs = get_top_k_similar_pairs(cosine_sim_matrix, speech_ids, k)
+#
+#     print(f"Top {k} most similar pairs:\n")
+#     for i, ((member1, member2), similarity) in enumerate(top_k_pairs.items(), start=1):
+#         # Fetch political parties for both members
+#         print(member1)
+#         member1_parties = get_political_parties(member1)
+#         member2_parties = get_political_parties(member2)
+#
+#         # Print result with numbering
+#         print(f"{i}. {member1} ({member1_parties}) - {member2} ({member2_parties}), Similarity: {similarity:.4f}")
+#
+#
+# if __name__ == "__main__":
+#     main(k=10)

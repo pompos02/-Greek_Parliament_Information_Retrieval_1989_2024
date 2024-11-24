@@ -1,0 +1,400 @@
+Theme 1:
+Top Words: τους εχ αλλ εν κυρι απο οτ εινα αυτ της
+Number of significant words: 594
+
+Theme 2:
+Top Words: πολιτικ χωρ αλλ ολ οποι μι εν οτ εινα αυτ
+Number of significant words: 383
+
+Theme 3:
+Top Words: κυβερνης στ οικονομι προυπολογισμ ευρωπαικ αναπτυξ πολιτικ κοινωνικ χωρ της
+Number of significant words: 590
+
+Theme 4:
+Top Words: τροποποιηθ παραγραφ διαταξ ερωτ συνεπως νομοσχεδι τροπολογι πλειοψηφι δεκτ αρθρ
+Number of significant words: 526
+
+Theme 5:
+Top Words: δεκτ ελληνικ λα κυβερνης κυρι πλειοψηφι προεδρ δημοκρατι πολιτικ της
+Number of significant words: 645
+
+Theme 6:
+Top Words: επικαιρ εκπαιδευς βουλ πανεπιστημι ερωτης εκπαιδευτικ οποι οτ βουλευτ της
+Number of significant words: 670
+
+Theme 7:
+Top Words: αριθμ οτ περιοχ εργ παραγωγ υπουργ επικαιρ αγροτ αγροτικ ερωτης
+Number of significant words: 582
+
+Theme 8:
+Top Words: κοινοβουλευτικ οτ πλειοψηφι δεκτ εινα αυτ βουλευτ λογ εχ ευχαριστουμ
+Number of significant words: 287
+
+Theme 9:
+Top Words: νοσοκομει λα υγει αριθμ δεκτ υπουργ βουλευτ ερωτης πλειοψηφι επικαιρ
+Number of significant words: 659
+
+Theme 10:
+Top Words: υπηρεσι εργ οποι λογ οτ εχ της γιατρ νοσοκομει υγει
+Number of significant words: 425
+
+Theme 11:
+Top Words: εγιν εινα κυρι συνεπως περιοχ ερωτ χωρ εργ πλειοψηφι δεκτ
+Number of significant words: 694
+
+Theme 12:
+Top Words: κοινωνικ ευρωπαικ αγροτ νομοσχεδι παραγωγ εργαζομεν λογ αγροτικ αυτ εινα
+Number of significant words: 627
+
+Theme 13:
+Top Words: γιατρ ελγ νοσοκομει συνεταιρισμ υγει προιοντ τους παραγωγ αγροτικ αγροτ
+Number of significant words: 518
+
+Theme 14:
+Top Words: πανεπιστημι αγροτ οικονομι παιδει αρθρ αγροτικ δεκτ προυπολογισμ εινα οτ
+Number of significant words: 598
+
+Theme 15:
+Top Words: της περιοχ συμφωνι ερωτ τροπολογι ες αρθρ τους αυτ δεκτ
+Number of significant words: 482
+
+Theme 16:
+Top Words: ευρω εινα βουλ εκπαιδευτικ ευρωπαικ πλειοψηφι εταιρει τραπεζ της προεδρ
+Number of significant words: 650
+
+Theme 17:
+Top Words: εμ εχετ συριζα λεπτ εινα βουλευτ νομοσχεδι αρθρ ναι ευχαριστουμ
+Number of significant words: 629
+
+Theme 18:
+Top Words: γυναικ εν βουλ τους αρθρ ευρω βουλευτ απο προεδρ εινα
+Number of significant words: 577
+
+Theme 19:
+Top Words: ευρωπαικ πολ εν ευχαριστουμ πλειοψηφι ναι χωρ οποι μι τροπολογι
+Number of significant words: 585
+
+Theme 20:
+Top Words: πανεπιστημι ποινικ δημοσι εταιρει ες πλειοψηφι δικαιοσυν αρθρ εχετ υπουργ
+Number of significant words: 596
+
+Theme 21:
+Top Words: απο αρθρ δικαιοσυν προεδρ δεκτ συναδελφ κυρι οποι ευχαριστουμ αυτ
+Number of significant words: 362
+
+Theme 22:
+Top Words: λεπτ επιχειρης δεκτ συμβας εμ εργασι αρθρ εργαζομεν οτ ευχαριστουμ
+Number of significant words: 530
+
+Theme 23:
+Top Words: ερωτης αυτ παρ εχ βουλευτ λογ πανεπιστημι οχι αρθρ ναι
+Number of significant words: 379
+
+Theme 24:
+Top Words: αγροτ δικαστ δικαστικ δημοσι εργ οχι δικαιοσυν δεκτ ευχαριστουμ ναι
+Number of significant words: 530
+
+Theme 25:
+Top Words: σχολει κοινωνικ προυπολογισμ πλειοψηφι συνεδριας υπουργ της συναδελφ αυτ ναι
+Number of significant words: 545
+
+Theme 26:
+Top Words: εταιρει φορολογικ μαθητ τιμ επιχειρης δημοσι τραπεζ νομοσχεδι τους ναι
+Number of significant words: 577
+
+Theme 27:
+Top Words: ενως λογ ευρωπαικ παραγραφ προυπολογισμ ευχαριστουμ τοπικ αρθρ δημ αυτοδιοικης
+Number of significant words: 574
+
+Theme 28:
+Top Words: ενεργει προεδρ συριζα τραπεζ ες δεκτ της τοπικ δημ αυτοδιοικης
+Number of significant words: 608
+
+Theme 29:
+Top Words: τοπικ δημ ευχαριστουμ ελληνικ υπουργει αυτοδιοικης συναδελφ ναι εινα οποι
+Number of significant words: 671
+
+Theme 30:
+Top Words: επικαιρ συμφωνι διοικης ασφαλις απο τραπεζ ταμει ασφαλιστικ ευρωπαικ δημοσι
+Number of significant words: 740
+
+Theme 31:
+Top Words: λεπτ σχολει εχετ εργασι βουλευτ κανονισμ ες οχι υπουργει προυπολογισμ
+Number of significant words: 640
+
+Theme 32:
+Top Words: βουλ τροπολογι αυτοδιοικης ευρωπαικ προυπολογισμ εργαζομεν φοιτητ συναδελφ απο πανεπιστημι
+Number of significant words: 516
+
+Theme 33:
+Top Words: σχολει εκπαιδευτικ εινα ενεργειακ αρθρ ενεργει κυβερνης πολιτικ απο οποι
+Number of significant words: 586
+
+Theme 34:
+Top Words: λεπτ εργαζομεν τους νοσοκομει επιχειρης παρακαλ εργ δανει συναδελφ τραπεζ
+Number of significant words: 600
+
+Theme 35:
+Top Words: νομοσχεδι ταμει αλλ ασφαλιστικ εργ οτ ενως συναδελφ ευρωπαικ οχι
+Number of significant words: 579
+
+Theme 36:
+Top Words: προεδρ ενεργειακ ενεργει αρθρ ναι πολιτ εργ τους δημοσι οτ
+Number of significant words: 497
+
+Theme 37:
+Top Words: εταιρει απο ναι αγων αυτοδιοικης φορολογικ ολυμπιακ αθλητικ αθλητισμ νομοσχεδι
+Number of significant words: 592
+
+Theme 38:
+Top Words: αμυν συναδελφ ερωτης δημοκρατι ευχαριστουμ επικαιρ ενοπλ υπουργει κυβερνης τραπεζ
+Number of significant words: 651
+
+Theme 39:
+Top Words: βουλευτ πασοκ επιτροπ απο εχ νομοσχεδι δικαιοσυν νομ ενως ευρωπαικ
+Number of significant words: 524
+
+Theme 40:
+Top Words: δασικ αθλητικ δε δημοσι ενεργειακ ολυμπιακ αθλητισμ τροπολογι ενεργει συναδελφ
+Number of significant words: 575
+
+Theme 41:
+Top Words: εχ οποι ολυμπιακ οτ αθλητικ επικαιρ κυβερνης αθλητισμ συναδελφ οχι
+Number of significant words: 554
+
+Theme 42:
+Top Words: πανεπιστημι πολιτικ υγει προστασι τραπεζ ες δας απο δασικ οτ
+Number of significant words: 713
+
+Theme 43:
+Top Words: δημοσι εγ μου νομ εργασι παιδι κοινωνικ νομοσχεδι γυναικ απο
+Number of significant words: 722
+
+Theme 44:
+Top Words: προυπολογισμ κυβερνης βουλ ευχαριστουμ νομ επιτροπ εχ ευρω οχι υπουργ
+Number of significant words: 590
+
+Theme 45:
+Top Words: εμ δασικ γιατι ες αλλ μι πολιτικ νοσοκομει εχ φορολογικ
+Number of significant words: 575
+
+Theme 46:
+Top Words: ασφαλει προεδρ κοινωνικ τιμ αγορ εργ αστυνομικ πολιτικ αστυνομι ες
+Number of significant words: 714
+
+Theme 47:
+Top Words: εξωτερικ δεκτ βουλευτ υπουργ εκλογικ ες νοσοκομει φορολογικ νομ τους
+Number of significant words: 689
+
+Theme 48:
+Top Words: παιδι γυναικ ακινητ τουρισμ πολιτικ συμβας υγει συναδελφ εταιρει φορολογικ
+Number of significant words: 743
+
+Theme 49:
+Top Words: ευρωπαικ χιλιαδ αυτ νομ οτ ολυμπιακ νοσοκομει βουλευτ εν λεπτ
+Number of significant words: 614
+
+Theme 50:
+Top Words: συμβας συμφωνι βουλευτ στρατιωτικ αστυνομικ συριζα αστυνομι δυναμε αμυν ενοπλ
+Number of significant words: 671
+
+Theme 51:
+Top Words: εθνικ πολιτικ υγει μου δασικ οποι εκλογικ εν λεπτ νομ
+Number of significant words: 683
+
+Theme 52:
+Top Words: συστημ δημοσι αστυνομικ εκλογικ συμφωνι ελληνικ αστυνομι ψηφοφορι υγει νομ
+Number of significant words: 637
+
+Theme 53:
+Top Words: νομ αστυνομικ πασοκ αστυνομι ευρω νοσοκομει οποι δημοκρατι εκπροσωπ κοινοβουλευτικ
+Number of significant words: 518
+
+Theme 54:
+Top Words: πολιτισμ ελληνικ ψηφ ψηφοφορι ες απο τουριστικ εκλογικ τουρισμ νοσοκομει
+Number of significant words: 639
+
+Theme 55:
+Top Words: κυβερνης ευρωπαικ εκλογικ συριζα αστυνομι αστυνομικ εγ προυπολογισμ μου αλλ
+Number of significant words: 654
+
+Theme 56:
+Top Words: παιδι αιγαι απο γυναικ αθλητισμ ναυτικ ναυτιλι πλοι δημοσι νησι
+Number of significant words: 678
+
+Theme 57:
+Top Words: τιμ ενεργει παρακαλ πασοκ μουσει εκπροσωπ πολιτικ κοινοβουλευτικ πολιτισμ υπουργει
+Number of significant words: 618
+
+Theme 58:
+Top Words: παρακαλ συμβας κυβερνης ενοπλ παιδι συμφωνι γυναικ τουριστικ αλλ τουρισμ
+Number of significant words: 623
+
+Theme 59:
+Top Words: εταιρει σχολει λεπτ αλλ ελληνικ συμβας νομ νοσοκομει προυπολογισμ κυβερνης
+Number of significant words: 680
+
+Theme 60:
+Top Words: πρεπ κοινοβουλευτικ γυναικ ολ αθλητισμ ες ελληνικ λα εχ λεπτ
+Number of significant words: 475
+
+Theme 61:
+Top Words: υγει χωρ φαρμακ εκλογικ δασικ τιμ ες αλλ εκπροσωπ κοινοβουλευτικ
+Number of significant words: 714
+
+Theme 62:
+Top Words: εν παρακαλω κανονισμ εταιρει εκπροσωπ ολυμπιακ τους κοινοβουλευτικ παρακαλ μι
+Number of significant words: 559
+
+Theme 63:
+Top Words: δασικ τιμ λαικ επιτροπ νοσοκομει ητ στ πολ ολ γυναικ
+Number of significant words: 628
+
+Theme 64:
+Top Words: τουριστικ συριζα συμβας εχ τουρισμ νοσοκομει εκπροσωπ δασικ συμφωνι κοινοβουλευτικ
+Number of significant words: 581
+
+Theme 65:
+Top Words: επιτροπ εμ δημοκρατι προτας νομ πολιτισμ τους ες συναδελφ λεπτ
+Number of significant words: 567
+
+Theme 66:
+Top Words: υπαρχ κεντρ προυπολογισμ νομοσχεδι αλλ συναδελφ δημοκρατι εκλογικ εν περιοχ
+Number of significant words: 706
+
+Theme 67:
+Top Words: ελληνικ παραγωγ λα κοινοβουλευτικ νομοσχεδι στ μου μι πολιτικ περιοχ
+Number of significant words: 606
+
+Theme 68:
+Top Words: εργασι αλλ οτ χωρ παρακαλω παρακαλ πολιτισμ ευρω προτας επιτροπ
+Number of significant words: 709
+
+Theme 69:
+Top Words: γυναικ κατεθες ολ εκλογικ αγροτ οχι γιατι παρακαλω παρακαλ προυπολογισμ
+Number of significant words: 613
+
+Theme 70:
+Top Words: χωρ στ εκπροσωπ αγροτ αλλ ητ κοινοβουλευτικ ες ολυμπιακ ολ
+Number of significant words: 617
+
+Theme 71:
+Top Words: λα αλλ κυβερνης πρωθυπουργ εχετ τωρα συριζα κοινωνικ ολυμπιακ ολ
+Number of significant words: 689
+
+Theme 72:
+Top Words: παρακαλ εχ εκλογικ ευρω κοινωνικ εμ παρακαλω πολιτικ εταιρει αλλ
+Number of significant words: 629
+
+Theme 73:
+Top Words: αλλ λεπτ εργαζομεν παρ υφυπουργ κυβερνης εκπροσωπ γυναικ κοινοβουλευτικ ευρω
+Number of significant words: 642
+
+Theme 74:
+Top Words: επιτροπ κυβερνης στ αστυνομι προτας μουσει εχετ πολιτισμ μι γυναικ
+Number of significant words: 654
+
+Theme 75:
+Top Words: στ προσωπικ κυβερνης λεπτ προτας κοινωνικ ειπ παρ ολυμπιακ εμ
+Number of significant words: 618
+
+Theme 76:
+Top Words: κυβερνης παρ πολ ες αγροτικ συνεταιρισμ γυναικ επιτροπ ευρω αλλ
+Number of significant words: 699
+
+Theme 77:
+Top Words: πασοκ διαδικασι παραγωγ εμ εκλογικ λετ συμβας χωρ γιατι δημ
+Number of significant words: 699
+
+Theme 78:
+Top Words: εγ αγων αδει ποινικ ποιν πολιτικ πρεπ φυλακ χωρ ολυμπιακ
+Number of significant words: 618
+
+Theme 79:
+Top Words: λα εκπαιδευτικ ρυθμις εκπαιδευς περιοχ χρυς αυγ ελληνικ μι γυναικ
+Number of significant words: 665
+
+Theme 80:
+Top Words: μι επι βουλευτ ες εν εταιρει συνεταιρισμ ολ κυβερνης προσωπικ
+Number of significant words: 598
+
+Theme 81:
+Top Words: ολ πασοκ συνεταιρισμ παρ ευρω αδει αποφας συμβουλι δημοκρατι χωρ
+Number of significant words: 662
+
+Theme 82:
+Top Words: επιχειρης ητ αποφας σχολει λα ρυθμις δημ προτας ελληνικ συνεταιρισμ
+Number of significant words: 619
+
+Theme 83:
+Top Words: πολιτικ νομοσχεδι κυβερνης συμφωνι βουλ παρ συμβας κοινωνικ πολ γιατι
+Number of significant words: 593
+
+Theme 84:
+Top Words: προτας τωρα δημοσι παραγωγ πολιτικ αστυνομικ εν αστυνομι ολ θεμ
+Number of significant words: 610
+
+Theme 85:
+Top Words: ητ κοινωνικ περιοχ εκπαιδευς δημ στ γυναικ γιατι πρεπ ες
+Number of significant words: 527
+
+Theme 86:
+Top Words: παρ εργ προυπολογισμ νομ συμβας χιλιαδ εμ αλλ νησι γιατρ
+Number of significant words: 734
+
+Theme 87:
+Top Words: συμβουλι αστυνομι σχολει ολυμπιακ γυναικ γιατι πρεπ λετ ητ πολιτικ
+Number of significant words: 612
+
+Theme 88:
+Top Words: αρθρ πολ βουλευτ παιδι κοινοβουλευτικ εχετ εν ολυμπιακ αλλ γιατι
+Number of significant words: 567
+
+Theme 89:
+Top Words: συνεταιριστικ μι διαδικασι ες δημοκρατι υπαρχ ολυμπιακ συνεταιρισμ ολ νησι
+Number of significant words: 672
+
+Theme 90:
+Top Words: λογ δραχμ ολ χιλιαδ κυβερνης υπουργει κανονισμ μι δημ ες
+Number of significant words: 599
+
+Theme 91:
+Top Words: εν γιατι γυναικ θεμ γιατρ επιχειρης ολ συμφωνι λετ δημ
+Number of significant words: 551
+
+Theme 92:
+Top Words: γιατρ εταιρει νε πολιτικ συριζα υπαρχ παρ δημοκρατι προσωπικ θεμ
+Number of significant words: 567
+
+Theme 93:
+Top Words: βουλ εμ συνεταιρισμ λα συμφωνι στ γυναικ δημοκρατι παρ υφυπουργ
+Number of significant words: 597
+
+Theme 94:
+Top Words: δισεκατομμυρι συνεταιριστικ προτας χιλιαδ συριζα χωρ γυναικ λετ γιατι συνεταιρισμ
+Number of significant words: 611
+
+Theme 95:
+Top Words: κρατουμεν παραγωγ δημ εργ συναδελφ αδει βουλ φυλακ πολ κανονισμ
+Number of significant words: 696
+
+Theme 96:
+Top Words: ες ελγ λαικ νοσοκομει επιχειρης στ μεταναστ χωρ δημ αγροτ
+Number of significant words: 694
+
+Theme 97:
+Top Words: ερευν συμβας εθνικ λετ εργαζομεν φαρμακ ερτ τραπεζ δημ νησι
+Number of significant words: 689
+
+Theme 98:
+Top Words: ελεγχ γεωργι προυπολογισμ πολ ερτ γιατρ συμφωνι εχετ ειδικ προτας
+Number of significant words: 746
+
+Theme 99:
+Top Words: ακινητ φαρμακευτικ κανονισμ δημοκρατι ολ στ εν γιατρ εταιρει φαρμακ
+Number of significant words: 611
+
+Theme 100:
+Top Words: υπηρεσι δημοκρατι λα νομ εχ γεωργι δημ ευρω κανονισμ εμ
+Number of significant words: 622
+

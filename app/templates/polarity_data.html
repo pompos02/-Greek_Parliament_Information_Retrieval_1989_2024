@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="polarity-data-container">
+    <h2>{{ title }}</h2>
+    <div class="table-container">
+        <table id="polarity-data-table" class="styled-table">
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="actions">
+        <a href="/polarity_tracking" class="button">Back to Polarity Tracking</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/datatables.net/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#polarity-data-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "info": true,
+            "ordering": true
+        });
+    });
+</script>
+
+<style>
+    .polarity-data-container {
+        margin: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 1em;
+        text-align: left;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #ffffff;
+        background-color: #007BFF;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .actions {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

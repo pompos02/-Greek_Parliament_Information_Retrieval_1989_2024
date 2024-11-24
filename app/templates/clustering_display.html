@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="concept-container">
+    <h2>{{ title }}</h2>
+    <div class="concept-content">
+        <pre>
+            {% for line in content %}
+                {{ line }}
+            {% endfor %}
+        </pre>
+    </div>
+    <div class="back-home-button-container">
+        <a href="/speeches_clustering" class="back-home-button">Back to Speeches Clustering</a>
+    </div>
+</div>
+{% endblock %}

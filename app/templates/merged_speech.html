@@ -4,7 +4,8 @@
 {% if error %}
     <div class="error">{{ error }}</div>
 {% else %}
-    <h2>Merged Speech Details</h2>
+    <h1>Full Speech</h1>
+    <p><strong>Member Name:</strong> {{ speech.member_name }}</p>
     <p><strong>Parliamentary Period:</strong> {{ speech.parliamentary_period }}</p>
     <p><strong>Parliamentary Session:</strong> {{ speech.parliamentary_session }}</p>
     <p><strong>Parliamentary Sitting:</strong> {{ speech.parliamentary_sitting }}</p>
@@ -12,5 +13,5 @@
     <p><strong>Speech:</strong></p>
     <p>{{ speech.merged_speech }}</p>
 {% endif %}
-<a href="/search" class="back-link">Back to Search</a>
+<a href="/search_engine?q={{ query }}" class="back-link">Back to Search</a>
 {% endblock %}

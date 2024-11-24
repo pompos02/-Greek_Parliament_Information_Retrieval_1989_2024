@@ -4,7 +4,7 @@
 <div class="search-container">
     <header>
         <h1>Search Speeches</h1>
-        <form action="/search" method="get">
+        <form action="/search_engine" method="get">
             <input type="text" name="q" value="{{ query }}" placeholder="Enter search term..." class="search-input">
             <button type="submit" class="search-submit">Search</button>
         </form>
@@ -14,36 +14,45 @@
         <div class="error">{{ error }}</div>
     {% endif %}
 
-    {% if no_results %}
-        <div class="no-results">No results found for "{{ query }}"</div>
-    {% else %}
-        <div class="results">
-            <p>Showing results for: <strong>{{ query }}</strong></p>
-            <p>Total results found: {{ total_results }}</p>
+    {% if query %}
+        {% if no_results %}
+            <div class="no-results">No results found for "{{ query }}"</div>
+        {% else %}
+            <div class="results">
+                <p>Showing results for: <strong>{{ query }}</strong></p>
+                <p>Total results found: {{ total_results }}</p>
 
-            <ul class="result-list">
-                {% for result in results %}
-                    <li class="result-item">
-                        <h3><strong>Member Name:</strong> {{ result.member_name }}</h3>
-                        <p><strong>Political Party:</strong> {{ result.political_party }}</p>
-                        <p><strong>Date:</strong> {{ result.sitting_date }}</p>
-                        <p><strong>Speech:</strong> {{ result.speech }}</p>
-                        <p><strong>Relevance Score:</strong> {{ result.score }}</p>
-                        <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}&member_name={{ result.member_name | urlencode }}" class="view-full-speech">View Full Speech</a>
-                    </li>
-                {% endfor %}
-            </ul>
+                <ul class="result-list">
+                    {% for result in results %}
+                        <li class="result-item">
+                            <h3><strong>Member Name:</strong> {{ result.member_name }}</h3>
+                            <p><strong>Political Party:</strong> {{ result.political_party }}</p>
+                            <p><strong>Date:</strong> {{ result.sitting_date }}</p>
+                            <p><strong>Speech:</strong> {{ result.merged_speech|safe }}</p>
+                            <p><strong>Relevance Score:</strong> {{ result.score }}</p>
+                            <a href="/merged_speech?period={{ result.parliamentary_period }}&session={{ result.parliamentary_session }}&sitting={{ result.parliamentary_sitting }}&date={{ result.sitting_date }}&member_name={{ result.member_name | urlencode }}&query={{ query }}" class="view-full-speech">View Full Speech</a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-            <div class="pagination">
-                {% if has_prev %}
-                    <a href="/search?q={{ query }}&page={{ page - 1 }}&per_page={{ per_page }}" class="prev">Previous</a>
-                {% endif %}
-                <span>Page {{ page }} of {{ total_pages }}</span>
-                {% if has_next %}
-                    <a href="/search?q={{ query }}&page={{ page + 1 }}&per_page={{ per_page }}" class="next">Next</a>
-                {% endif %}
+                <div class="pagination">
+                    {% if has_prev %}
+                        <a href="/search_engine?q={{ query }}&page={{ page - 1 }}" class="prev">Previous</a>
+                    {% endif %}
+                    <span>Page {{ page }} of {{ total_pages }}</span>
+                    {% if has_next %}
+                        <a href="/search_engine?q={{ query }}&page={{ page + 1 }}" class="next">Next</a>
+                    {% endif %}
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endif %}
 </div>
+
+<style>
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
+    }
+</style>
 {% endblock %}

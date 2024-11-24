@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="concept-container">
+    <h2>{{ title }}</h2>
+    <div class="concept-content">
+        <pre>
+            {% for line in content %}
+                {{ line }}
+            {% endfor %}
+        </pre>
+    </div>
+    <a href="/top_concepts" class="search-button">Back to Top Concepts</a>
+</div>
+{% endblock %}

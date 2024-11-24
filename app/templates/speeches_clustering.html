@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="keywords-container">
+    <h2>Speeches Clustering</h2>
+    <p>Select a clustering method to view the best speeches per cluster:</p>
+    <div class="keyword-section">
+        <a href="/clustering/kmeans_lsi" class="search-button">K-Means (LSI)</a>
+        <a href="/clustering/kmeans_nmf" class="search-button">K-Means (NMF)</a>
+    </div>
+</div>
+{% endblock %}

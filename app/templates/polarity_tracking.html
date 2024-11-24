@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="keywords-container">
+    <h2>Polarity Tracking</h2>
+    <div>
+        <img src="/static/images/polarity.png" alt="Polarity Image" style="max-width: 100%; height: auto;">
+    </div>
+    <div>
+        <a href="/polarity_data/negative" class="search-button">Top Negative Words</a>
+        <a href="/polarity_data/positive" class="search-button">Top Positive Words</a>
+    </div>
+</div>
+{% endblock %}

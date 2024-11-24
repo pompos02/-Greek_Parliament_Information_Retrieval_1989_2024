@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="keywords-container">
+    <h2>Top 10 Keywords Trends</h2>
+
+    <div class="keyword-section">
+        <h3>Top 10 Keywords Over All Speeches</h3>
+        <div class="keyword-content">
+            <img src="{{ url_for('static', filename='images/top_keywords_overall_trends.png') }}" alt="Speeches Keyword Trends Over Time">
+            <p><a href="{{ url_for('static', filename='data/top_keywords_per_year.csv') }}" download>Download CSV</a></p>
+        </div>
+    </div>
+
+    <div class="keyword-section">
+        <h3>Top 10 Keywords Per Political Party</h3>
+        <div class="keyword-content">
+            <img src="{{ url_for('static', filename='images/party_keyword_trends_over_time.png') }}" alt="Party Keyword Trends Over Time">
+            <p><a href="{{ url_for('static', filename='data/party_keyword_trends_over_time.csv') }}" download>Download CSV</a></p>
+        </div>
+    </div>
+
+    <div class="keyword-section">
+        <h3>Top 10 Keywords Per Member</h3>
+        <div class="keyword-content">
+            <img src="{{ url_for('static', filename='images/member_keyword_trends_over_time.png') }}" alt="Member Keyword Trends Over Time">
+            <p><a href="{{ url_for('static', filename='data/member_keyword_trends_over_time.csv') }}" download>Download CSV</a></p>
+        </div>
+    </div>
+    <a href="/" class="back-home-button">Back to Home</a>
+</div>
+
+{% endblock %}

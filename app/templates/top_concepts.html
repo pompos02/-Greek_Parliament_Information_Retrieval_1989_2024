@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="keywords-container">
+    <h2>Top Concepts</h2>
+    <p>Select a method to view the concepts:</p>
+    <div class="keyword-section">
+        <a href="/top_concepts/lsi" class="search-button">LSI Results</a>
+        <a href="/top_concepts/nmf" class="search-button">NMF Results</a>
+    </div>
+</div>
+{% endblock %}

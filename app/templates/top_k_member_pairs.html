@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="top-k-container">
+    <h2>Top K Most Similar Member Pairs</h2>
+    <form method="POST" action="/top_k_member_pairs">
+        <div>
+            <label for="k-value">Enter the value of K:</label>
+            <input type="number" id="k-value" name="k" min="1" required>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    {% if results %}
+    <h3>Results:</h3>
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Member 1</th>
+                <th>Political Parties (Member 1)</th>
+                <th>Member 2</th>
+                <th>Political Parties (Member 2)</th>
+                <th>Similarity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.rank }}</td>
+                <td>{{ result.member1 }}</td>
+                <td>{{ result.member1_parties }}</td>
+                <td>{{ result.member2 }}</td>
+                <td>{{ result.member2_parties }}</td>
+                <td>{{ result.similarity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
+{% endblock %}
