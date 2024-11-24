@@ -42,3 +42,10 @@ output/top_keywords_overall_trends.png
 output/top_keywords_overall.csv
 output/top_keywords_per_year.csv
 test.py
+pkl_files/stemmedWordSentiments.pickle
+preprocess_pkl_files/preprocessed_all_speeches.pkl
+test_lexicon.py
+speeches.db
+temp_stemmed_word_sentiments.csv
+top_negative_words_by_party.csv
+top_positive_words_by_party.csv

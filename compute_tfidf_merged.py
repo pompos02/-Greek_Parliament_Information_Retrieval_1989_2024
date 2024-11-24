@@ -80,12 +80,8 @@ def main():
         exit(1)
 
     # Connect to your PostgreSQL database
-    db_name = 'speeches'
-    db_user = 'pompos02'            # Replace with your PostgreSQL username
-    db_password = 'mypassword123'   # Replace with your PostgreSQL password
-    db_host = 'localhost'
-    db_port = '5432'
-    engine = get_db
+   
+    engine = get_db()
 
     # Count total records to set tqdm's total parameter
     count_query = 'SELECT COUNT(*) FROM merged_speeches'
