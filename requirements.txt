@@ -15,3 +15,4 @@ seaborn
 umap
 tensorflow
 umap-learn
+transformers 
