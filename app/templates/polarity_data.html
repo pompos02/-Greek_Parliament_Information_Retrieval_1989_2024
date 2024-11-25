@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="polarity-data-container">
+<div class="top-k-container">
     <h2>{{ title }}</h2>
-    <div class="table-container">
         <table id="polarity-data-table" class="styled-table">
             <thead>
                 <tr>
@@ -22,31 +21,25 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
     <div class="actions">
-        <a href="/polarity_tracking" class="button">Back to Polarity Tracking</a>
+        <a href="/polarity_tracking" class="back-home-button">Back to Polarity Tracking</a>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/datatables.net/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#polarity-data-table').DataTable({
-            "paging": true,
-            "searching": true,
-            "info": true,
-            "ordering": true
-        });
+$(document).ready(function() {
+    $('#polarity-data-table').DataTable({
+        "paging": true,
+        "searching": false,
+        "info": false,
+        "ordering": true
     });
+});
 </script>
 
 <style>
-    .polarity-data-container {
-        margin: 20px;
-        font-family: Arial, sans-serif;
-    }
-
     .styled-table {
         width: 100%;
         border-collapse: collapse;
@@ -65,34 +58,38 @@
         text-align: left;
     }
 
-    .styled-table tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
-    }
-
     .styled-table tbody tr:hover {
         background-color: #f1f1f1;
     }
 
-    .button {
+    .dataTables_paginate .paginate_button {
         display: inline-block;
-        padding: 10px 20px;
-        font-size: 1em;
-        color: #ffffff;
-        background-color: #007BFF;
-        text-decoration: none;
+        padding: 8px 12px;
+        margin: 0 5px;
+        font-size: 14px;
+        color: #007BFF; /* Blue color */
+        border: 1px solid #ddd; /* Light border */
         border-radius: 5px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        text-decoration: none;
     }
-
-    .button:hover {
-        background-color: #0056b3;
+    .dataTables_paginate .paginate_button:hover {
+        background-color: #007BFF;
+        color: white;
+        border-color: #0056b3;
     }
-
-    .table-container {
-        overflow-x: auto;
+    .dataTables_paginate .paginate_button.current {
+        background-color: #007BFF;
+        color: white;
+        font-weight: bold;
+        border-color: #0056b3;
     }
-
-    .actions {
-        margin-top: 20px;
+    .dataTables_paginate .paginate_button.disabled {
+        color: #aaa;
+        background-color: #f1f1f1;
+        border-color: #ddd;
+        cursor: not-allowed;
     }
 </style>
 {% endblock %}
