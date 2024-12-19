@@ -1,5 +1,5 @@
-
 from app import db
+
 
 class Speech(db.Model):
     __tablename__ = 'speeches'

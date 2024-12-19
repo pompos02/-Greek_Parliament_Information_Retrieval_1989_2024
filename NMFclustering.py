@@ -33,7 +33,7 @@ mbk.fit(nmf_vectors_normalized)
 clusters = mbk.labels_
 cluster_centers = mbk.cluster_centers_
 
-# Optionally compute silhouette score
+# compute silhouette score
 sample_size = 10000
 sil_score = silhouette_score(nmf_vectors_normalized, clusters, metric='cosine', sample_size=sample_size, random_state=42)
 print(f"Silhouette Score={sil_score:.4f}")
@@ -66,14 +66,13 @@ for cluster in np.unique(clusters):
     best_speeches_per_cluster[cluster] = df.loc[best_2_indices, 'speech_id'].values
 
 
-# Assuming you have a 'speeches' table with an 'id' column
 query = text("""
     SELECT id, member_name, sitting_date, political_party,roles, merged_speech 
     FROM merged_speeches 
     WHERE id IN :speech_ids
 """)
-# Flatten the speech IDs from the dictionary and pass them to the query
-# Flatten the speech IDs from the dictionary and convert to Python int
+
+# Flatten the speech IDs from the dictionary and convert to int
 speech_ids_to_fetch = [int(id) for cluster_ids in best_speeches_per_cluster.values() for id in cluster_ids]
 
 
@@ -112,7 +111,6 @@ visualization_df = pd.DataFrame({
     'cluster': clusters
 })
 
-# Plot the 3D clusters
 fig = plt.figure(figsize=(12, 8))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -126,15 +124,13 @@ scatter = ax.scatter(
     visualization_df['y'],
     visualization_df['z'],
     c=colors,
-    s=10,  # Marker size
-    alpha=0.7  # Transparency
+    s=10,
+    alpha=0.7
 )
 
-# Set plot labels and title
 ax.set_title("K-Means Clusters Visualized with UMAP (3D)")
 ax.set_xlabel("UMAP Dimension 1")
 ax.set_ylabel("UMAP Dimension 2")
 ax.set_zlabel("UMAP Dimension 3")
 
-# Show the plot
 plt.show()

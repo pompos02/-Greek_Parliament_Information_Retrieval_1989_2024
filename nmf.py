@@ -3,15 +3,17 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from sklearn.decomposition import NMF
 import os
-from tqdm import tqdm  # Import tqdm
+from tqdm import tqdm
 import sys
 
 # Redirect stderr to stdout to capture verbose output
 sys.stderr = sys.stdout
 
+
 # Function to print messages immediately
 def print_flush(message):
     print(message, flush=True)
+
 
 # Load the TF-IDF matrix
 print_flush("Loading the TF-IDF matrix...")
@@ -21,8 +23,7 @@ with open("pkl_files/tfidf_matrix.pkl", "rb") as f:
 if not isinstance(tfidf_matrix, csr_matrix):
     raise TypeError("TF-IDF matrix is not in a sparse format. Convert it to CSR or CSC before proceeding.")
 
-# Define the number of components
-n_components = 100  # Number of themes
+n_components = 100  # Define the number of themes
 
 print_flush("Initializing the NMF model...")
 # Initialize and fit the NMF model with verbose for progress updates
@@ -33,7 +34,7 @@ nmf_model = NMF(
     max_iter=100,
     solver='mu',
     beta_loss='kullback-leibler',
-    verbose=2  # Increase verbosity for more detailed progress
+    verbose=2
 )
 
 print_flush("Fitting the NMF model. This may take some time...")
@@ -67,13 +68,13 @@ threshold = 0.01  # Define the threshold for "significant" word weights
 
 with open(output_file, "w", encoding="utf-8") as f_out:
     for i, topic in tqdm(enumerate(nmf_topics), total=len(nmf_topics), desc="Processing Themes"):
-        f_out.write(f"Theme {i+1}:\n")
-        
+        f_out.write(f"Theme {i + 1}:\n")
+
         # Top words for this theme
         top_words_indices = topic.argsort()[-n_top_words:][::-1]
         top_words = [vocabulary[j] for j in top_words_indices]
         f_out.write("Top Words: " + " ".join(top_words) + "\n")
-        
+
         # Count the number of significant words
         significant_word_count = np.sum(topic > threshold)
         f_out.write(f"Number of significant words: {significant_word_count}\n\n")

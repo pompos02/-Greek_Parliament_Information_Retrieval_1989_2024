@@ -23,8 +23,7 @@ lsi_vectors_normalized = normalize(lsi_vectors)
 # Path to save and load the KMeans labels
 labels_file = "pkl_files/Kmeans_labels.pkl"
 
-
-    # Define K-Means parameters
+# Define K-Means parameters
 n_clusters = 50
 mbk = KMeans(n_clusters=n_clusters, random_state=42, n_init='auto')
 mbk.fit(lsi_vectors_normalized)
@@ -33,11 +32,11 @@ mbk.fit(lsi_vectors_normalized)
 clusters = mbk.labels_
 cluster_centers = mbk.cluster_centers_
 
-# Optionally compute silhouette score
+# compute silhouette score
 sample_size = 10000
-sil_score = silhouette_score(lsi_vectors_normalized, clusters, metric='cosine', sample_size=sample_size, random_state=42)
+sil_score = silhouette_score(lsi_vectors_normalized, clusters, metric='cosine', sample_size=sample_size,
+                             random_state=42)
 print(f"Silhouette Score={sil_score:.4f}")
-
 
 engine = get_db()
 
@@ -52,35 +51,33 @@ best_speeches_per_cluster = {}
 for cluster in np.unique(clusters):
     # Get the indices of the speeches in the current cluster
     cluster_indices = df[df['cluster'] == cluster].index
-    
+
     # Get the cluster center
     cluster_center = mbk.cluster_centers_[cluster]
-    
+
     # Calculate distances from the cluster center (using cosine distance)
     distances = np.linalg.norm(lsi_vectors_normalized[cluster_indices] - cluster_center, axis=1)
-    
+
     # Find the indices of the two smallest distances (best 2 speeches)
     best_2_indices = cluster_indices[np.argsort(distances)[:2]]
-    
+
     # Store the best 2 speeches' IDs in the dictionary
     best_speeches_per_cluster[cluster] = df.loc[best_2_indices, 'speech_id'].values
-
 
 query = text("""
     SELECT id, member_name, sitting_date, political_party,roles, merged_speech 
     FROM merged_speeches 
     WHERE id IN :speech_ids
 """)
-# Flatten the speech IDs from the dictionary and pass them to the query
-# Flatten the speech IDs from the dictionary and convert to Python int
+# Flatten the speech IDs from the dictionary and convert to int
 speech_ids_to_fetch = [int(id) for cluster_ids in best_speeches_per_cluster.values() for id in cluster_ids]
-
 
 with engine.connect() as connection:
     result = connection.execute(query, {'speech_ids': tuple(speech_ids_to_fetch)})
 
 # Convert result to a DataFrame
-speech_details = pd.DataFrame(result.fetchall(), columns=['id', 'member_name', 'sitting_date','political_party','roles','speech'])
+speech_details = pd.DataFrame(result.fetchall(),
+                              columns=['id', 'member_name', 'sitting_date', 'political_party', 'roles', 'speech'])
 
 # Write results to a text file
 output_file = "output/best_speeches_per_cluster_lsi.txt"
@@ -111,7 +108,6 @@ visualization_df_2d = pd.DataFrame({
     'cluster': clusters
 })
 
-# Plot the 2D clusters
 plt.figure(figsize=(12, 8))
 
 # Generate a color palette
@@ -128,7 +124,6 @@ sns.scatterplot(
     alpha=0.7
 )
 
-# Set plot labels and title
 plt.title("K-Means Clusters Visualized with UMAP (2D)")
 plt.xlabel("UMAP Dimension 1")
 plt.ylabel("UMAP Dimension 2")

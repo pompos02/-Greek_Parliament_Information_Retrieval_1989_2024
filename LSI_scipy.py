@@ -41,7 +41,7 @@ os.makedirs(output_folder, exist_ok=True)
 output_file = os.path.join(output_folder, "lsi_concepts.txt")
 
 n_top_words = 10  # Number of words to display for each theme
-threshold = 0.01  # Define the threshold for "significant" word weights
+threshold = 0.01  # Threshold for "significant" word weights
 
 with open(output_file, "w", encoding="utf-8") as f:
     for i, topic in enumerate(lsi_topics):

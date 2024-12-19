@@ -1,27 +1,18 @@
-import pandas as pd # type: ignore
+import nltk
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sqlalchemy import create_engine
 import pickle
 from nltk.corpus import stopwords
-import unicodedata
 import re
-from greek_stemmer import stemmer  # type: ignore # Ensure this is correctly installed and imported
-import spacy # type: ignore
+from greek_stemmer import stemmer  # Ensure this is correctly installed and imported
+import spacy
 from tqdm import tqdm
 import os
 from db import get_db
 
-def remove_accents(text):
-    """Remove accents from Greek words."""
-    if not text:
-        return ''
-    normalized_text = unicodedata.normalize('NFD', text)
-    accent_removed_text = ''.join(
-        char for char in normalized_text if unicodedata.category(char) != 'Mn'
-    )
-    return unicodedata.normalize('NFC', accent_removed_text)
 
-def preprocess_documents_chunk(texts, nlp, greek_stopwords, UNWANTED_PATTERN, TAB_PATTERN, stemmer, batch_size=250, n_process=1):
+def preprocess_documents_chunk(texts, nlp, greek_stopwords, UNWANTED_PATTERN, TAB_PATTERN, stemmer, batch_size,
+                               n_process=1):
     """
     Generator that preprocesses texts in chunks to manage memory usage.
     """
@@ -31,11 +22,11 @@ def preprocess_documents_chunk(texts, nlp, greek_stopwords, UNWANTED_PATTERN, TA
             # Remove unwanted patterns
             cleaned_token = UNWANTED_PATTERN.sub('', token.text)
             cleaned_token = TAB_PATTERN.sub('', cleaned_token)
-            
+
             # Skip if token is empty, a stopword, or a single character
             if (not cleaned_token) or (cleaned_token.lower() in greek_stopwords) or (len(cleaned_token) == 1):
                 continue
-            
+
             # Apply stemming based on POS tag
             pos = token.pos_
             try:
@@ -49,20 +40,21 @@ def preprocess_documents_chunk(texts, nlp, greek_stopwords, UNWANTED_PATTERN, TA
                     stemmed = stemmer.stem_word(cleaned_token, "PRP").lower()
                 else:
                     stemmed = stemmer.stem_word(cleaned_token, "NNM").lower()
-                
+
                 if stemmed:
                     tokens.append(stemmed)
             except Exception as e:
                 print(f"Error stemming word '{cleaned_token}': {e}")
                 continue
-        
+
         preprocessed_text = ' '.join(tokens)
         yield preprocessed_text
 
+
 def main():
     # Download necessary NLTK data
-    #nltk.download('stopwords')
-    #nltk.download('punkt')
+    nltk.download('stopwords')
+    nltk.download('punkt')
 
     # Greek stopwords
     greek_stopwords = set(stopwords.words('greek'))
@@ -79,8 +71,7 @@ def main():
         print("Please run this: python -m spacy download el_core_news_sm")
         exit(1)
 
-    # Connect to your PostgreSQL database
-   
+    # Connect to the PostgreSQL database
     engine = get_db()
 
     # Count total records to set tqdm's total parameter
@@ -88,18 +79,17 @@ def main():
     total_records_df = pd.read_sql_query(count_query, con=engine)
     total_records = total_records_df.iloc[0, 0]  # 1,354,685
 
-    chunksize = 100  # Reduced from 10,000
-    total_chunks = (total_records // chunksize) + 1
+    chunksize = 100
 
     # Load speeches from the database in chunks
     print("Loading data from the database...")
-    query = 'SELECT id, merged_speech FROM merged_speeches ORDER BY sitting_date ASC' 
+    query = 'SELECT id, merged_speech FROM merged_speeches ORDER BY sitting_date ASC'
 
     # Initialize TfidfVectorizer
     print("Initializing TfidfVectorizer...")
     vectorizer = TfidfVectorizer(
         max_features=10000,  # Limit vocabulary size to top 10,000 terms
-        lowercase=False      # Lowercasing already handled in preprocessing
+        lowercase=False  # Lowercasing already handled in preprocessing
     )
 
     # Directory to save preprocessed chunks
@@ -127,8 +117,8 @@ def main():
             UNWANTED_PATTERN=UNWANTED_PATTERN,
             TAB_PATTERN=TAB_PATTERN,
             stemmer=stemmer,
-            batch_size=25,    # Further reduced
-            n_process=2       # Set to 1 to reduce memory usage
+            batch_size=25,
+            n_process=2
         ))
 
         # Create a DataFrame for the preprocessed chunk
@@ -139,9 +129,6 @@ def main():
 
         # Save to disk (using pickle)
         preprocessed_df.to_pickle(os.path.join(preprocessed_dir, f'preprocessed_chunk_{chunk_number}.pkl'))
-        # Alternatively, use Parquet for better performance and compression
-        # preprocessed_df.to_parquet(os.path.join(preprocessed_dir, f'preprocessed_chunk_{chunk_number}.parquet'))
-
         # Update the progress bar by the number of rows processed in this chunk
         pbar.update(len(chunk))
 
@@ -181,15 +168,16 @@ def main():
     print("Saving the vectorizer and TF-IDF matrix...")
     with open('tfidf_vectorizer.pkl', 'wb') as f:
         pickle.dump(vectorizer, f)
-    
+
     with open('tfidf_matrix.pkl', 'wb') as f:
         pickle.dump(tfidf_matrix, f)
-    
-    # Optionally, save the speech IDs for reference
+
+    # Save the speech IDs for reference
     with open('speech_ids.pkl', 'wb') as f:
         pickle.dump(df['id'].tolist(), f)
-    
+
     print("TF-IDF vectors computed and saved successfully.")
+
 
 if __name__ == "__main__":
     main()

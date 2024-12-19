@@ -1,6 +1,5 @@
 import pickle
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from sqlalchemy import text
 from db import get_db
@@ -8,16 +7,13 @@ from db import get_db
 
 def load_pickle_files():
     """Load the precomputed pickle files."""
-    with open('tfidf_vectors/tfidf_vectorizer.pkl', 'rb') as f:
-        vectorizer = pickle.load(f)
-
-    with open('tfidf_vectors/tfidf_matrix.pkl', 'rb') as f:
+    with open('pkl_files/top_k_pairs_vectors/tfidf_matrix.pkl', 'rb') as f:
         tfidf_matrix = pickle.load(f)
 
-    with open('tfidf_vectors/speech_ids.pkl', 'rb') as f:
+    with open('pkl_files/top_k_pairs_vectors/speech_ids.pkl', 'rb') as f:
         speech_ids = pickle.load(f)
 
-    return vectorizer, tfidf_matrix, speech_ids
+    return tfidf_matrix, speech_ids
 
 
 def get_top_k_similar_pairs(cosine_sim_matrix, speech_ids, k=10):
@@ -56,25 +52,3 @@ def get_political_parties(member_name):
         # Access the first element of the tuple for 'political_party'
         parties = [row[0] for row in result]
     return ', '.join(parties) if parties else "Unknown"
-
-
-# def main(k):
-#     vectorizer, tfidf_matrix, speech_ids = load_pickle_files()
-#
-#     cosine_sim_matrix = cosine_similarity(tfidf_matrix)  # cosine similarity for all members (NxN matrix)
-#
-#     top_k_pairs = get_top_k_similar_pairs(cosine_sim_matrix, speech_ids, k)
-#
-#     print(f"Top {k} most similar pairs:\n")
-#     for i, ((member1, member2), similarity) in enumerate(top_k_pairs.items(), start=1):
-#         # Fetch political parties for both members
-#         print(member1)
-#         member1_parties = get_political_parties(member1)
-#         member2_parties = get_political_parties(member2)
-#
-#         # Print result with numbering
-#         print(f"{i}. {member1} ({member1_parties}) - {member2} ({member2_parties}), Similarity: {similarity:.4f}")
-#
-#
-# if __name__ == "__main__":
-#     main(k=10)

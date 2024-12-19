@@ -2,23 +2,11 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 from nltk.corpus import stopwords
-import unicodedata
 import re
 from greek_stemmer import stemmer
 import spacy
 import os
 from db import get_db
-
-
-def remove_accents(text):
-    """Remove accents from Greek words."""
-    if not text:
-        return ''
-    normalized_text = unicodedata.normalize('NFD', text)
-    accent_removed_text = ''.join(
-        char for char in normalized_text if unicodedata.category(char) != 'Mn'
-    )
-    return unicodedata.normalize('NFC', accent_removed_text)
 
 
 def preprocess_text(text, nlp, greek_stopwords, UNWANTED_PATTERN, TAB_PATTERN, stemmer):
@@ -88,7 +76,7 @@ def main():
         nlp = spacy.load("el_core_news_sm", disable=["parser", "ner"])
         nlp.max_length = 4000000
     except Exception as e:
-        print("Please run this: python -m spacy download el_core_news_sm==3.7.0")
+        print("Please run this: python -m spacy download el_core_news_sm")
         exit(1)
 
     engine = get_db()
@@ -130,12 +118,8 @@ def main():
     print("Computing TF-IDF matrix...")
     tfidf_matrix = vectorizer.fit_transform(speeches)
 
-    tfidf_dir = 'tfidf_vectors'
+    tfidf_dir = 'pkl_files/top_k_pairs_vectors'
     os.makedirs(tfidf_dir, exist_ok=True)
-
-    print("Saving the TfidfVectorizer...")
-    with open(os.path.join(tfidf_dir, 'tfidf_vectorizer.pkl'), 'wb') as f:
-        pickle.dump(vectorizer, f)
 
     print("Saving the TF-IDF matrix...")
     with open(os.path.join(tfidf_dir, 'tfidf_matrix.pkl'), 'wb') as f:

@@ -1,17 +1,16 @@
 import pickle
 import numpy as np
 import pandas as pd
-from sqlalchemy import create_engine, select, Table, MetaData
+from sqlalchemy import select, Table, MetaData
 import matplotlib.pyplot as plt
 from db import get_db
-import os
 
-# Load TF-IDF Matrix and Feature Names
+
 def load_tfidf_data():
     # Load the TF-IDF matrix
     with open('pkl_files/tfidf_matrix.pkl', 'rb') as f:
         tfidf_matrix = pickle.load(f)
-    
+
     # Load the vectorizer to get feature names
     with open('pkl_files/tfidf_vectorizer.pkl', 'rb') as f:
         vectorizer = pickle.load(f)
@@ -19,17 +18,18 @@ def load_tfidf_data():
     feature_names = vectorizer.get_feature_names_out()
     return tfidf_matrix, feature_names
 
+
 # Load Speech IDs
 def load_speech_ids():
     with open('pkl_files/speech_ids.pkl', 'rb') as f:
         speech_ids = pickle.load(f)
     return speech_ids
 
+
 def get_top_keywords(tfidf_matrix, feature_names, top_n=10):
     COMMON_KEYWORDS = {
         "αυτ", "εινα", "της", "αυτ", "απο", "εν", "τους", "κυρι",
-        "οτ", "δε", "απο","αλλ","εχ","λογ","μι"
-        # Add more common keywords you want to exclude
+        "οτ", "δε", "απο", "αλλ", "εχ", "λογ", "μι"
     }
 
     keywords = []
@@ -37,18 +37,20 @@ def get_top_keywords(tfidf_matrix, feature_names, top_n=10):
         row = tfidf_matrix[i].toarray().flatten()  # Convert sparse row to dense
         indices = np.argsort(row)[::-1]  # Sort indices by TF-IDF score descending
         filtered_keywords = [
-            (feature_names[idx], row[idx])
-            for idx in indices if feature_names[idx] not in COMMON_KEYWORDS
-        ][:top_n]  # Only take top N after filtering
+                                (feature_names[idx], row[idx])
+                                for idx in indices if feature_names[idx] not in COMMON_KEYWORDS
+                            ][:top_n]  # Only take top N after filtering
         keywords.append(filtered_keywords)
     return keywords
 
-# Connect to PostgreSQL Database
+
+# Connect to the PostgreSQL Database
 def connect_to_db():
-    engine = get_db()  # Call the `get_db` function to get the engine
+    engine = get_db()
     metadata = MetaData()
-    merged_speeches = Table("merged_speeches", metadata, autoload_with=engine)  # Use the engine for autoload
+    merged_speeches = Table("merged_speeches", metadata, autoload_with=engine)
     return engine, merged_speeches
+
 
 # Fetch Speech Data using Speech IDs
 def fetch_speech_data(engine, merged_speeches, speech_ids):
@@ -61,7 +63,7 @@ def fetch_speech_data(engine, merged_speeches, speech_ids):
     ).where(
         merged_speeches.c.id.in_(speech_ids)
     )
-    
+
     with engine.connect() as conn:
         result = conn.execute(query)
         speech_data = result.fetchall()
@@ -71,7 +73,7 @@ def fetch_speech_data(engine, merged_speeches, speech_ids):
         speech_data,
         columns=["id", "member_name", "political_party", "sitting_date"]
     )
-    
+
     # Create a DataFrame of speech_ids with their order
     speech_ids_df = pd.DataFrame({'id': speech_ids, 'tfidf_row_index': range(len(speech_ids))})
 
@@ -83,13 +85,13 @@ def fetch_speech_data(engine, merged_speeches, speech_ids):
     if not missing_data.empty:
         print("Warning: The following speech IDs are missing from the database:")
         print(missing_data['id'].tolist())
-        # You can choose to drop these rows or handle them accordingly
         merged_df = merged_df.dropna(subset=['member_name'])
 
     # Sort merged_df by 'tfidf_row_index' to ensure alignment with TF-IDF matrix
     merged_df = merged_df.sort_values('tfidf_row_index').reset_index(drop=True)
 
     return merged_df
+
 
 # Analyze Keywords by Member and Party
 def analyze_keywords(df):
@@ -109,7 +111,6 @@ def analyze_keywords(df):
 
     return member_keywords, party_keywords
 
-# The rest of the functions remain the same...
 
 # Track Keyword Changes Over Time for Members
 def track_member_keyword_trends(df, member_keywords):
@@ -118,7 +119,7 @@ def track_member_keyword_trends(df, member_keywords):
     # Explode keywords for time-based analysis
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract word
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
 
     # Merge with top keywords to filter
     exploded = exploded.merge(
@@ -135,6 +136,7 @@ def track_member_keyword_trends(df, member_keywords):
 
     return member_keyword_trends
 
+
 # Track Keyword Changes Over Time for Parties
 def track_party_keyword_trends(df, party_keywords):
     df["sitting_year"] = pd.to_datetime(df["sitting_date"]).dt.year
@@ -142,7 +144,7 @@ def track_party_keyword_trends(df, party_keywords):
     # Explode keywords for time-based analysis
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract word
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
 
     # Merge with top keywords to filter
     exploded = exploded.merge(
@@ -159,17 +161,10 @@ def track_party_keyword_trends(df, party_keywords):
 
     return party_keyword_trends
 
+
 # Visualize Keyword Trends
 def visualize_keyword_trends_trends(df_trends, group_by, title, plot_file):
-    """
-    Visualize keyword trends over time for a given group (member or party).
-
-    Parameters:
-        df_trends (pd.DataFrame): DataFrame containing trends with columns [group, year, keyword, score]
-        group_by (str): The column to group by ('member_name' or 'political_party')
-        title (str): The title of the plot
-        plot_file (str): The file path to save the plot
-    """
+    """ Visualize keyword trends over time for a given group (member or party)."""
     # Determine top 10 keywords based on total scores across all groups and years
     top_keywords = df_trends.groupby("keyword")["score"].sum().sort_values(ascending=False).head(10).index.tolist()
 
@@ -191,7 +186,6 @@ def visualize_keyword_trends_trends(df_trends, group_by, title, plot_file):
     plt.close()
     print(f"Plot saved to {plot_file}")
 
-# New functions remain the same...
 
 def compute_top_keywords_per_year(df, top_n=10):
     df["sitting_year"] = pd.to_datetime(df["sitting_date"]).dt.year
@@ -199,7 +193,7 @@ def compute_top_keywords_per_year(df, top_n=10):
     # Explode keywords to have one keyword per row
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract keyword
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
 
     # Group by year and keyword to sum scores
     yearly_keyword_scores = exploded.groupby(["sitting_year", "keyword"])["score"].sum().reset_index()
@@ -211,13 +205,14 @@ def compute_top_keywords_per_year(df, top_n=10):
 
     return top_keywords_per_year
 
+
 def compute_top_keywords_overall_and_trend(df, top_n=10):
     df["sitting_year"] = pd.to_datetime(df["sitting_date"]).dt.year
 
     # Explode keywords to have one keyword per row
     exploded = df.explode("keywords")
     exploded["keyword"] = exploded["keywords"].apply(lambda x: x[0])  # Extract keyword
-    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])    # Extract score
+    exploded["score"] = exploded["keywords"].apply(lambda x: x[1])  # Extract score
 
     # Aggregate total scores for all keywords
     total_keyword_scores = exploded.groupby("keyword")["score"].sum().reset_index()
@@ -233,9 +228,11 @@ def compute_top_keywords_overall_and_trend(df, top_n=10):
 
     return top_keywords_overall, keyword_trends
 
+
 def visualize_overall_keyword_trends(keyword_trends, top_keywords_overall, title, plot_file):
     # Pivot the DataFrame to have years as x-axis and keywords as columns
-    pivot_df = keyword_trends.pivot_table(index="sitting_year", columns="keyword", values="score", aggfunc='sum', fill_value=0)
+    pivot_df = keyword_trends.pivot_table(index="sitting_year", columns="keyword", values="score", aggfunc='sum',
+                                          fill_value=0)
 
     # Ensure the columns are ordered according to top_keywords_overall
     pivot_df = pivot_df[top_keywords_overall]
@@ -252,7 +249,7 @@ def visualize_overall_keyword_trends(keyword_trends, top_keywords_overall, title
     plt.close()
     print(f"Plot saved to {plot_file}")
 
-# Main Execution Flow
+
 def main():
     # Load TF-IDF matrix, feature names, and speech IDs
     tfidf_matrix, feature_names = load_tfidf_data()
@@ -340,6 +337,7 @@ def main():
     member_keyword_trends.to_csv("output/member_keyword_trends_over_time.csv", index=False)
     party_keyword_trends.to_csv("output/party_keyword_trends_over_time.csv", index=False)
     print("Keyword trends saved to CSV files.")
+
 
 if __name__ == "__main__":
     main()

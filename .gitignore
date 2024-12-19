@@ -1,7 +1,4 @@
 tell_all_FILLED_FINAL.csv
-speech_ids.pkl
-tfidf_matrix.pkl
-tfidf_vectorizer.pkl
 __pycache__/compute_tfidf.cpython-310.pyc
 __pycache__/config.cpython-310.pyc
 app/__pycache__/__init__.cpython-310.pyc
@@ -18,8 +15,6 @@ app/__pycache__/models.cpython-39.pyc
 app/__pycache__/routes.cpython-39.pyc
 Merged
 pkl_files/.DS_Store
-pkl_files/.DS_Store
-.DS_Store
 output/member_keyword_trends_over_time.csv
 output/party_keyword_trends_over_time.csv
 output/member_keyword_trends_over_time.png
@@ -47,8 +42,8 @@ preprocess_pkl_files/preprocessed_all_speeches.pkl
 test_lexicon.py
 speeches.db
 temp_stemmed_word_sentiments.csv
-top_negative_words_by_party.csv
-top_positive_words_by_party.csv
+app/static/data/top_negative_words_by_party.csv
+app/static/data/top_positive_words_by_party.csv
 output/Clustering_Nmf_3D.png
 output/Clustering_Lsi_3D.png
 __pycache__/task3_top_k_pairs.cpython-310.pyc

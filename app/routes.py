@@ -3,11 +3,10 @@ import pandas as pd
 from sqlalchemy import text
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
-import unicodedata
 import re
 from nltk.corpus import stopwords
-import spacy  # type: ignore
-from greek_stemmer import stemmer  # type: ignore
+import spacy
+from greek_stemmer import stemmer
 from db import get_db
 from task3_top_k_pairs import load_pickle_files, get_top_k_similar_pairs, get_political_parties
 
@@ -49,16 +48,6 @@ def create_routes(app):
 
     def preprocess_query(query_text):
         """Preprocess the search query using the same pipeline as the documents."""
-
-        def remove_accents(text):
-            if not text:
-                return ''
-            normalized_text = unicodedata.normalize('NFD', text)
-            accent_removed_text = ''.join(
-                char for char in normalized_text if unicodedata.category(char) != 'Mn'
-            )
-            return unicodedata.normalize('NFC', accent_removed_text)
-
         # Process with SpaCy
         doc = nlp(query_text)
         tokens = []
@@ -122,9 +111,8 @@ def create_routes(app):
             # Transform query to TF-IDF vector
             query_vector = vectorizer.transform([processed_query])
 
-            # Calculate similarity scores
             similarity_scores = cosine_similarity(query_vector, tfidf_matrix).flatten()
-            print(tfidf_matrix.shape)
+            print(similarity_scores.shape)
             # Get top matches above threshold
             threshold = 0.1
             top_indices = similarity_scores.argsort()[::-1]
@@ -154,7 +142,7 @@ def create_routes(app):
             # Get speech IDs for SQL query
             speech_ids_to_fetch = [r['speech_id'] for r in paginated_results]
 
-            # Fetch speeches from database using SQLAlchemy
+            # Fetch speeches from database
             sql_query = text("""
                 SELECT id, merged_speech, member_name, sitting_date , political_party,parliamentary_period,parliamentary_session,parliamentary_sitting
                 FROM merged_speeches 
@@ -179,7 +167,7 @@ def create_routes(app):
                         'member_name': speech['member_name'] or 'Unknown',
                         'political_party': speech['political_party'],
                         'score': result['similarity_score'],
-                        'parliamentary_period': speech['parliamentary_period'],  # Ensure these keys are added
+                        'parliamentary_period': speech['parliamentary_period'],
                         'parliamentary_session': speech['parliamentary_session'],
                         'parliamentary_sitting': speech['parliamentary_sitting'],
                         'sitting_date': speech['sitting_date'] if speech['sitting_date'] else None,
@@ -217,7 +205,7 @@ def create_routes(app):
         sitting = request.args.get('sitting')
         date = request.args.get('date')
         member_name = request.args.get('member_name')
-        query = request.args.get('query', '')  # Capture the query parameter
+        query = request.args.get('query', '')
 
         try:
             # Fetch the merged speech from the merged_speeches table
@@ -256,18 +244,17 @@ def create_routes(app):
         if request.method == 'POST':
             try:
                 k = int(request.form.get('k', 10))
-                _, tfidf_matrix, speech_ids = load_pickle_files()
+                tfidf_matrix, speech_ids = load_pickle_files()
 
-                # Convert speech_ids into a list of member names (or fetch appropriately)
+                # Convert speech_ids into a list of member names
                 member_names = [speech_id[1] if isinstance(speech_id, tuple) else speech_id for speech_id in speech_ids]
 
-                # Compute cosine similarity matrix
                 cosine_sim_matrix = cosine_similarity(tfidf_matrix)
 
-                # Get the top-k most similar pairs
+                # Top-k most similar pairs
                 top_k_pairs = get_top_k_similar_pairs(cosine_sim_matrix, member_names, k)
 
-                # Prepare results with member names, political parties, and similarities
+                # Results with member names, political parties, and similarities
                 results = []
                 for i, ((member1, member2), similarity) in enumerate(top_k_pairs.items(), start=1):
                     member1_parties = get_political_parties(member1)
@@ -333,7 +320,7 @@ def create_routes(app):
             formatted_content = []
             with open(file_path, 'r', encoding='utf-8') as f:
                 for line in f:
-                    if "Speech ID:" not in line: # Skip lines containing "Speech ID"
+                    if "Speech ID:" not in line:  # Skip lines containing "Speech ID"
                         formatted_content.append(line.strip())
 
             return render_template('clustering_display.html', title=title, content=formatted_content)

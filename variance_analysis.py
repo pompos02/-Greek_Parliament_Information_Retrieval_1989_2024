@@ -2,7 +2,6 @@ import pickle
 import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import svds
-import os
 
 # Load the TF-IDF matrix
 with open("pkl_files/tfidf_matrix.pkl", "rb") as f:
@@ -21,7 +20,7 @@ U, Sigma, VT = svds(tfidf_matrix, k=max_k, which='LM')
 Sigma = Sigma[::-1]
 
 # Analyze variance explained
-explained_variance_ratio = Sigma**2 / np.sum(Sigma**2)
+explained_variance_ratio = Sigma ** 2 / np.sum(Sigma ** 2)
 cumulative_variance = np.cumsum(explained_variance_ratio)
 
 # Plot cumulative variance

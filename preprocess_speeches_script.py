@@ -6,7 +6,6 @@ import os
 from db import get_db
 from greek_stemmer import stemmer
 from nltk.corpus import stopwords
-import unicodedata
 import re
 
 # Configure logging
@@ -19,21 +18,13 @@ greek_stopwords = set(stopwords.words('greek'))
 UNWANTED_PATTERN = re.compile(r'[0-9@#$%^&*()\-\_=+\[\]{};:\'",.<>/?\\|`~!]')
 TAB_PATTERN = re.compile(r'\t+')
 
-# Function to remove accents from Greek text
-def remove_accents(text):
-    if not isinstance(text, str):
-        return ''
-    return ''.join(
-        char for char in unicodedata.normalize('NFD', text)
-        if unicodedata.category(char) != 'Mn'
-    )
 
 # Preprocess each speech
 def preprocess_speech(text, nlp):
     if not isinstance(text, str):
         logging.warning('Non-string text encountered.')
         return ''
-    
+
     try:
         doc = nlp(text)
         tokens = []
@@ -41,11 +32,11 @@ def preprocess_speech(text, nlp):
             # Remove unwanted patterns
             cleaned_token = UNWANTED_PATTERN.sub('', token.text)
             cleaned_token = TAB_PATTERN.sub('', cleaned_token)
-            
+
             # Skip empty, stopword, or single-character tokens
             if not cleaned_token or cleaned_token.lower() in greek_stopwords or len(cleaned_token) == 1:
                 continue
-            
+
             # Apply stemming based on POS tag
             pos = token.pos_
             try:
@@ -59,17 +50,18 @@ def preprocess_speech(text, nlp):
                     stemmed = stemmer.stem_word(cleaned_token, "PRP").lower()
                 else:
                     stemmed = stemmer.stem_word(cleaned_token, "NNM").lower()
-                
+
                 if stemmed:
                     tokens.append(stemmed)
             except Exception as e:
                 logging.error(f"Error stemming word '{cleaned_token}': {e}")
                 continue
-        
+
         return ' '.join(tokens)
     except Exception as e:
         logging.error(f"Error processing text: {e}")
         return ''
+
 
 # Main script
 if __name__ == "__main__":
@@ -83,7 +75,7 @@ if __name__ == "__main__":
     logging.info(f'Total speeches in database: {total_speeches}')
 
     # Directory to save preprocessed speeches
-    output_dir = 'preprocess_pkl_files'
+    output_dir = 'pkl_files/preprocess_pkl_files'
     os.makedirs(output_dir, exist_ok=True)
 
     # Load Greek language model
@@ -102,20 +94,20 @@ if __name__ == "__main__":
 
     for i, chunk in enumerate(reader):
         logging.info(f'Processing chunk {i + 1}')
-        
+
         # Preprocess the speeches
         chunk['preprocessed_speech'] = chunk['merged_speech'].apply(lambda x: preprocess_speech(x, nlp))
-        
+
         # Save the chunk to a pickle file
         chunk_path = os.path.join(output_dir, f'preprocessed_chunk_{i}.pkl')
         with open(chunk_path, 'wb') as f:
             # Include 'id', 'political_party', and 'preprocessed_speech'
-            pickle.dump(chunk[['id','sitting_date', 'political_party', 'preprocessed_speech']], f)
+            pickle.dump(chunk[['id', 'sitting_date', 'political_party', 'preprocessed_speech']], f)
         logging.info(f'Saved preprocessed chunk {i + 1} to {chunk_path}')
 
     logging.info('All speeches preprocessed and saved.')
 
-input_dir = 'preprocess_pkl_files'
+input_dir = 'pkl_files/preprocess_pkl_files'
 
 # Initialize an empty list to hold DataFrames
 df_list = []
