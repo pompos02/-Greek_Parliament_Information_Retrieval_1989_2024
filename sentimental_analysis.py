@@ -195,8 +195,3 @@ logging.info(f'Top positive words by party exported to {output_csv_path_top_posi
 output_csv_path_top_negative = 'top_negative_words_by_party.csv'
 top_negative_words_df.to_csv(output_csv_path_top_negative, index=False, encoding='utf-8-sig')
 logging.info(f'Top negative words by party exported to {output_csv_path_top_negative}.')
-
-# === New Code Ends Here ===
-
-# Continue with your existing code for additional visualizations or analysis
-# ...
