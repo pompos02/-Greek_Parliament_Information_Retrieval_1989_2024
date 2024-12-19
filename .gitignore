@@ -49,3 +49,6 @@ speeches.db
 temp_stemmed_word_sentiments.csv
 top_negative_words_by_party.csv
 top_positive_words_by_party.csv
+output/Clustering_Nmf_3D.png
+output/Clustering_Lsi_3D.png
+__pycache__/task3_top_k_pairs.cpython-310.pyc

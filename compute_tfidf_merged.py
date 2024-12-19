@@ -76,7 +76,7 @@ def main():
         # Load SpaCy model with disabled components to speed up processing
         nlp = spacy.load("el_core_news_sm", disable=["parser", "ner"])
     except Exception as e:
-        print("Please run this: python -m spacy download el_core_news_sm==3.7.0")
+        print("Please run this: python -m spacy download el_core_news_sm")
         exit(1)
 
     # Connect to your PostgreSQL database

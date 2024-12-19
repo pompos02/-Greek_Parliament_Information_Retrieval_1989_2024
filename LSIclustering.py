@@ -100,40 +100,40 @@ with open(output_file, "w", encoding="utf-8") as file:
 
 print(f"Results saved to {output_file}")
 
-umap_reducer = UMAP(n_components=3, random_state=42)
-lsi_vectors_3d = umap_reducer.fit_transform(lsi_vectors_normalized)
+# Reduce dimensions to 2D using UMAP
+umap_reducer_2d = UMAP(n_components=2, random_state=42)
+lsi_vectors_2d = umap_reducer_2d.fit_transform(lsi_vectors_normalized)
 
 # Create a DataFrame for visualization
-visualization_df = pd.DataFrame({
-    'x': lsi_vectors_3d[:, 0],
-    'y': lsi_vectors_3d[:, 1],
-    'z': lsi_vectors_3d[:, 2],
+visualization_df_2d = pd.DataFrame({
+    'x': lsi_vectors_2d[:, 0],
+    'y': lsi_vectors_2d[:, 1],
     'cluster': clusters
 })
 
-# Plot the 3D clusters
-fig = plt.figure(figsize=(12, 8))
-ax = fig.add_subplot(111, projection='3d')
+# Plot the 2D clusters
+plt.figure(figsize=(12, 8))
 
 # Generate a color palette
 palette = sns.color_palette("tab20", n_colors=n_clusters)
-colors = [palette[cluster] for cluster in clusters]
 
-# Plot the points
-scatter = ax.scatter(
-    visualization_df['x'],
-    visualization_df['y'],
-    visualization_df['z'],
-    c=colors,
-    s=10,  # Marker size
-    alpha=0.7  # Transparency
+# Plot each cluster with a unique color
+sns.scatterplot(
+    x='x',
+    y='y',
+    hue='cluster',
+    palette=palette,
+    data=visualization_df_2d,
+    legend='full',
+    alpha=0.7
 )
 
 # Set plot labels and title
-ax.set_title("K-Means Clusters Visualized with UMAP (3D)")
-ax.set_xlabel("UMAP Dimension 1")
-ax.set_ylabel("UMAP Dimension 2")
-ax.set_zlabel("UMAP Dimension 3")
+plt.title("K-Means Clusters Visualized with UMAP (2D)")
+plt.xlabel("UMAP Dimension 1")
+plt.ylabel("UMAP Dimension 2")
 
-# Show the plot
+# Adjust legend and show the plot
+plt.legend(title="Cluster", bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
 plt.show()
