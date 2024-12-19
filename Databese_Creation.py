@@ -37,34 +37,3 @@ if not invalid_dates.empty:
     print(invalid_dates)
 else:
     print("No corrupted dates found.")
-
-#NOMIZW EN DULEFKEI, DIMIURGA TO merged_speeches POU TO pgADMIN
-# Drop 'merged_speeches' table if it exists and recreate it
-drop_table_sql = "DROP TABLE IF EXISTS merged_speeches;"
-create_table_sql = """
-CREATE TABLE merged_speeches AS
-SELECT
-    ROW_NUMBER() OVER (ORDER BY member_name, parliamentary_period, parliamentary_session, parliamentary_sitting, sitting_date) AS id,
-    member_name,
-    parliamentary_period,
-    parliamentary_session,
-    parliamentary_sitting,
-    sitting_date,
-    STRING_AGG(speech, ' ') AS merged_speech,
-    COUNT(*) AS speech_count
-FROM
-    speeches
-GROUP BY
-    member_name,
-    parliamentary_period,
-    parliamentary_session,
-    parliamentary_sitting,
-    sitting_date;
-"""
-
-# Execute the SQL commands
-with engine.connect() as connection:
-    connection.execute(text(drop_table_sql))  # Drop existing table if it exists
-    connection.execute(text(create_table_sql))  # Create and populate the new table
-
-print("Table 'merged_speeches' re-created and populated successfully.")
