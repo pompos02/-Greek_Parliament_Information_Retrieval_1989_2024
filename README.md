@@ -68,7 +68,7 @@ The LSI model reduces dimensions of the TF-IDF matrix to identify thematic areas
 ---
 
 ## Speech Clustering  
-Using LSI vectors, K-Means is applied to group speeches into clusters. Alternative clustering methods like NMF are also evaluated for better results.  
+Using LSI vectors, K-Means is applied to group speeches into clusters. Alternative dimensionality reduction methods like NMF are also evaluated for better results in  clustering.  
 
 ---
 
