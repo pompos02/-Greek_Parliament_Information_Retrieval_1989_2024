@@ -39,7 +39,7 @@ To ensure the project functions correctly, follow these steps if you are running
 
 1. Download the libraries listed in requirements.txt
 2. Read the README file in the directory `Greek_Parliament_Information_Retrieval_1989_2024\pkl_files`. Download and place all `.pkl` files from the provided drive into the same directory.  
-3. run the **nltk_download.py** script
+3. Run the **nltk_download.py** script
 4. Execute the following command in the terminal to download the necessary SpaCy model:  
    ```bash
    python -m spacy download el_core_news_sm
