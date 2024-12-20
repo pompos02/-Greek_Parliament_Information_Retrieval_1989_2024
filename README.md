@@ -37,9 +37,10 @@ The project aims to create a robust system for analyzing and extracting insights
 ## Setup Instructions  
 To ensure the project functions correctly, follow these steps if you are running it for the first time:
 
-1. Read the README file in the directory `Greek_Parliament_Information_Retrieval_1989_2024\pkl_files`. Download and place all `.pkl` files from the provided drive into the same directory.  
-2. run the **nltk_download.py** script
-2. Execute the following command in the terminal to download the necessary SpaCy model:  
+1. Download the libraries listed in requirements.txt
+2. Read the README file in the directory `Greek_Parliament_Information_Retrieval_1989_2024\pkl_files`. Download and place all `.pkl` files from the provided drive into the same directory.  
+3. run the **nltk_download.py** script
+4. Execute the following command in the terminal to download the necessary SpaCy model:  
    ```bash
    python -m spacy download el_core_news_sm
 ### Database  
@@ -78,6 +79,8 @@ Sentiment analysis is performed to measure polarity scores for political parties
 ---
 
 ## Results  
-All results are stored in the `results` folder, that also includes screenshots and a video showcasing the web-app.
+All results are stored in the `results` folder, that also includes screenshots.
+[This is a video showcasing the web-app.](https://www.youtube.com/watch?v=w-K3Ec3imIs&ab_channel=%CE%99%CE%AC%CF%83%CE%BF%CE%BD%CE%B1%CF%82)
+
 
 ---
