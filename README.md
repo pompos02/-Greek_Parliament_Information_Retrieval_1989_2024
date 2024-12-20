@@ -73,11 +73,11 @@ Using LSI vectors, K-Means is applied to group speeches into clusters. Alternati
 ---
 
 ## Polarity Tracking by Parliament Group  
-Sentiment analysis is performed to measure polarity scores for political parties over time. The frequency of thepositive and negative keywords are stored and visualized.  
+Sentiment analysis is performed to measure polarity scores for political parties over time. The frequency of the positive and negative keywords are stored and visualized.  
 
 ---
 
 ## Results  
-All results are stored in the `results` folder and include screenshots of the web application.
+All results are stored in the `results` folder, that also includes screenshots and a video showcasing the web-app.
 
 ---
