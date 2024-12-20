@@ -1,0 +1,400 @@
+Theme 1:
+Top Words: αυτ εινα οτ μι οποι εν αλλ απο εχ πρεπ
+Number of significant words: 927
+
+Theme 2:
+Top Words: λογ ευχαριστουμ κυρι εχ λεπτ συναδελφ οριστ εχετ βουλευτ της
+Number of significant words: 802
+
+Theme 3:
+Top Words: της στοχ σημαντικ νομοσχεδι απο εν αποτελ πλαισι ενισχυς αυτ
+Number of significant words: 1697
+
+Theme 4:
+Top Words: αρθρ παραγραφ διαταξ νομοσχεδι της ρυθμις απο τροποποιης παρατηρης νομ
+Number of significant words: 923
+
+Theme 5:
+Top Words: ερωτης επικαιρ αριθμ βουλευτ υπουργ προς σχετικ κυκλ της υφυπουργ
+Number of significant words: 753
+
+Theme 6:
+Top Words: ευρω αυξης μειως απο προυπολογισμ της δισεκατομμυρι εκατομμυρι στ εινα
+Number of significant words: 1238
+
+Theme 7:
+Top Words: υγει νοσοκομει γιατρ ιατρικ ασθεν εσυ μοναδ κεντρ φροντιδ υγειονομικ
+Number of significant words: 906
+
+Theme 8:
+Top Words: κυρι προεδρ υπουργ συναδελφ λογ εινα ηθελ ευχαριστ επιτρεπετ μου
+Number of significant words: 74
+
+Theme 9:
+Top Words: αυτ λα οτ εινα ολ τους ελληνικ γιατι ει δημοκρατι
+Number of significant words: 1589
+
+Theme 10:
+Top Words: εκπαιδευς σχολει εκπαιδευτικ παιδει μαθητ σχολικ παιδι λυκει επαγγελματικ μαθηματ
+Number of significant words: 768
+
+Theme 11:
+Top Words: της κρητ εργ κοινοτικ περιφερει πορ στηριξ εσπα προγραμμ απο
+Number of significant words: 784
+
+Theme 12:
+Top Words: λαικ της αυτ εινα λα κεφαλαι κκε ομιλ τους καπιταλιστικ
+Number of significant words: 1388
+
+Theme 13:
+Top Words: αγροτικ αγροτ παραγωγ προιοντ γεωργι κτηνοτροφ της τους καλλιεργει γεωργικ
+Number of significant words: 941
+
+Theme 14:
+Top Words: περιοχ κατοικ αττικ της δημ παρκ εγκαταστας βολ παραχωρης χωρι
+Number of significant words: 794
+
+Theme 15:
+Top Words: προυπολογισμ πλειοψηφι δαπαν οικονομικ ελλειμμ οικονομι ελλειμματ δημοσιονομικ δημοσι χρ
+Number of significant words: 841
+
+Theme 16:
+Top Words: πολιτ κοινωνι της πολιτικ κυρι χωρ συναδελφ μι κοινωνικ ολ
+Number of significant words: 1767
+
+Theme 17:
+Top Words: εργασι εργαζομεν απασχολης τους ανεργι ανεργ οαεδ αυτ εργαζον συμβασιουχ
+Number of significant words: 697
+
+Theme 18:
+Top Words: τους ανθρωπ ζω απο πατριδ ελλην εινα ολ εν στ
+Number of significant words: 1137
+
+Theme 19:
+Top Words: μι οποι εχουμ χωρ απο πολ αυτ προσπαθει εν ζητημ
+Number of significant words: 1197
+
+Theme 20:
+Top Words: βουλ βουλευτ της συζητης κανονισμ κοινοβουλι κοινοβουλευτικ αυτ προεδρ κομματ
+Number of significant words: 359
+
+Theme 21:
+Top Words: τροπολογι νομοσχεδι ρυθμις διαταξ μι υπουργ οτ αλλ εινα φερνετ
+Number of significant words: 641
+
+Theme 22:
+Top Words: εργαζομεν εργασιακ εργασι συλλογικ απεργι συνδικαλιστικ απολυς δικαιωματ της μισθ
+Number of significant words: 768
+
+Theme 23:
+Top Words: ναι λογ εχ διαγραφ κορακ ενοτητ κεδικογλ γεωργακοπουλ παπαδοπουλ λεντακ
+Number of significant words: 290
+
+Theme 24:
+Top Words: δικαιοσυν δικαστικ δικαστηρι δικαστ υποθες της εισαγγελε ποινικ αρει παγ
+Number of significant words: 793
+
+Theme 25:
+Top Words: δημοσι διοικης υπαλληλ ασεπ κριτηρι προσληψ διευθυντ υπηρεσι διοικητικ τομε
+Number of significant words: 820
+
+Theme 26:
+Top Words: αγορ τιμ ανταγωνισμ καταναλωτ προιοντ εμπορι επιχειρης απελευθερως στ κερδ
+Number of significant words: 816
+
+Theme 27:
+Top Words: τοπικ δημ αυτοδιοικης δημοτικ νομαρχιακ δημαρχ περιφερει κοινοτητ αρμοδιοτητ νομαρχ
+Number of significant words: 559
+
+Theme 28:
+Top Words: εργ μελετ κατασκευ αναθες οδ τεχνικ δημοσι διαγωνισμ εργολαβ εκτελες
+Number of significant words: 624
+
+Theme 29:
+Top Words: τουρκι εξωτερικ της νατ κυπρ χωρ πολεμ ελλαδ διεθν εθνικ
+Number of significant words: 836
+
+Theme 30:
+Top Words: φορολογικ φορολογι φορ φπ φοροδιαφυγ συντελεστ εισοδηματ εσοδ φορολογης απο
+Number of significant words: 864
+
+Theme 31:
+Top Words: ασφαλιστικ συνταξ ταμει ασφαλις εισφορ ικ συνταξιουχ κοινωνικ συνταξε επικουρικ
+Number of significant words: 710
+
+Theme 32:
+Top Words: πανεπιστημι φοιτητ σχολ ιδρυματ πανεπιστημιακ σπουδ καθηγητ τμηματ εκπαιδευς παιδει
+Number of significant words: 702
+
+Theme 33:
+Top Words: της κυβερνης πολιτικ πασοκ απο δημοκρατι κυβερνητικ μι νε ευθυν
+Number of significant words: 1307
+
+Theme 34:
+Top Words: τραπεζ δανει χρε τραπεζικ επιτοκι ρυθμις οφειλ τους επιχειρης της
+Number of significant words: 811
+
+Theme 35:
+Top Words: ευρωπαικ ενως ευρωπ της οδηγι χωρ ελλαδ συνθηκ γερμανι κοινοτικ
+Number of significant words: 573
+
+Theme 36:
+Top Words: απο δραχμ σελιδ καμι εκειν καινουρι σαν αλλ εοκ οτ
+Number of significant words: 894
+
+Theme 37:
+Top Words: τουρισμ αναπτυξ επενδυς τουριστικ αναπτυξιακ οικονομι επιχειρης επενδυτικ επενδυσε επιχειρησε
+Number of significant words: 775
+
+Theme 38:
+Top Words: αθλητισμ ολυμπιακ αγων αθλητικ ομοσπονδι σωματει γηπεδ αθλητ ποδοσφαιρ οπαπ
+Number of significant words: 487
+
+Theme 39:
+Top Words: οχι ουτως αλλως μον εκκλης λαβετ δευτερολογι ευαισθησι μακαρι αντιλαμβανεστ
+Number of significant words: 258
+
+Theme 40:
+Top Words: πετρελαι αερι πρασιν καυσιμ φυσικ κλιματικ της μεταβας περιβαλλοντικ λαρκ
+Number of significant words: 652
+
+Theme 41:
+Top Words: κυβερνης αντιπολιτευς της οτ προεκλογικ αυτ αξιωματικ κυρι εκλογ συναδελφ
+Number of significant words: 777
+
+Theme 42:
+Top Words: δασικ δας εκτας κτηματολογι προστασι χαρτ πυρκαγι πυροσβεστικ στρεμματ εκτασε
+Number of significant words: 642
+
+Theme 43:
+Top Words: ζητηματ ζητημ πρεπ λειτουργι συγκεκρι αφορ τους προβληματ ελεγχ πλαισι
+Number of significant words: 988
+
+Theme 44:
+Top Words: συλλογ δικηγορ επαγγελματι επαγγελματ επαγγελμ μηχανικ ελευθερ κερκυρ επαγγελματικ μιλατ
+Number of significant words: 278
+
+Theme 45:
+Top Words: πληρων αυτ ευρω χρηματ γιν εχ πληρως πληρωνουν προστιμ πληρωσουν
+Number of significant words: 556
+
+Theme 46:
+Top Words: ες εχετ κανετ κανατ ειπατ αυτ ειχατ γιατι μπορειτ υπουργ
+Number of significant words: 575
+
+Theme 47:
+Top Words: αστυνομι αστυνομικ ασφαλει τρομοκρατι της ταξ οπλ εγκληματικοτητ περιστατικ πολιτ
+Number of significant words: 790
+
+Theme 48:
+Top Words: ενοπλ υπαλληλ σωματ δυναμε στρατιωτικ αμυν στρατ τους προσωπικ αξιωματικ
+Number of significant words: 722
+
+Theme 49:
+Top Words: χιλιαδ εικοσι πεντε πενηντα τριαντα χρονι εκατον τεσσερ εξι εκατομμυρι
+Number of significant words: 282
+
+Theme 50:
+Top Words: ητ ειχ μην ειχαμ στ στοιχει της αυτ χρονι κυβερνης
+Number of significant words: 802
+
+Theme 51:
+Top Words: νομ συνταγμ συνταγματικ της συνταγματ νομικ εννοι εινα οτ οποι
+Number of significant words: 1247
+
+Theme 52:
+Top Words: δεκτ αρθρ συνεπως σωμ ερωτ της πλειοψηφι κυρι επι συνεδριας
+Number of significant words: 341
+
+Theme 53:
+Top Words: κανουμ πασοκ συναδελφ εμ εχουμ αγαπητ δημοκρατι μπορουμ δωσουμ δινουμ
+Number of significant words: 582
+
+Theme 54:
+Top Words: εκλογικ εκλογ ψηφ αναλογικ κομματ πλειοψηφι εκλεγ δημοψηφισμ υποψηφι δημοκρατι
+Number of significant words: 799
+
+Theme 55:
+Top Words: σκανδαλ προμηθει διαφθορ βιομηχανι αμυντικ ναυπηγει siemens ευθυν της εξεταστικ
+Number of significant words: 736
+
+Theme 56:
+Top Words: νησι πλοι ναυτιλι αιγαι ναυτικ νησιωτικ λιμενικ λιμανι πειραι νης
+Number of significant words: 537
+
+Theme 57:
+Top Words: πολιτισμ κτηρι κτιρι μουσικ θεατρ μεγαρ υπουργει βιβλιοθηκ καλλιτεχνικ σκην
+Number of significant words: 426
+
+Theme 58:
+Top Words: παιδι οικογενει αναπηρι ατομ κοινωνικ παιδ πολυτεκν δημογραφικ μητερ οικογενειακ
+Number of significant words: 729
+
+Theme 59:
+Top Words: της ελεγχ εν πραξ χωρις νομοθετικ νομοθεσι νομ περιεχομεν προστασι
+Number of significant words: 1320
+
+Theme 60:
+Top Words: λεπτ μιλης χρον εχ ει μις ανοχ ομιλι ωρ μιλ
+Number of significant words: 259
+
+Theme 61:
+Top Words: παρ ψηφοφορι ονομαστικ ονοματ ψηφισαν ονομ ποθ αναγνως εσχ λιστ
+Number of significant words: 282
+
+Theme 62:
+Top Words: λογ κυρι παρακαλ παρακαλω εχ εκπροσωπ κοινοβουλευτικ συναδελφ οριστ κανονισμ
+Number of significant words: 551
+
+Theme 63:
+Top Words: ενεργει δε ενεργειακ ηλεκτρικ πηγ ρευμ ανανεωσιμ της ρευματ εξοικονομης
+Number of significant words: 449
+
+Theme 64:
+Top Words: ομιλητ μιλησουν επιστολ αυρι καταλογ εισηγητ ωρ παμ τελειωσουμ αγορητ
+Number of significant words: 438
+
+Theme 65:
+Top Words: μου οτ ειπ εγ απαντης πρωθυπουργ εκαν λε ειμα δηλως
+Number of significant words: 725
+
+Theme 66:
+Top Words: θρακ περιοχ ελληνισμ της μακεδονι δραμ νομ καβαλ αποδημ βορει
+Number of significant words: 532
+
+Theme 67:
+Top Words: πολιτιστικ πολιτισμ μουσει αρχαιολογικ μνημει κληρονομι πνευματικ αρχαι της αρχαιοτητ
+Number of significant words: 622
+
+Theme 68:
+Top Words: πολ καλ παρα μου εγ ευχαριστ υπουργει υφυπουργ θελ ειμα
+Number of significant words: 374
+
+Theme 69:
+Top Words: οποι οτ αλλ ασφαλως διοτ εκειν συναδελφ οπως εινα εξ
+Number of significant words: 1022
+
+Theme 70:
+Top Words: γιατι λε εινα τους εκει ανθρωπ εδω κανουν ξερ καποι
+Number of significant words: 835
+
+Theme 71:
+Top Words: συριζα μητσοτακ πανδημι κυριακ απο τωρα κυρι τσιπρ αλλαγ εχετ
+Number of significant words: 567
+
+Theme 72:
+Top Words: συμβουλι αποφας μελ της εν αντιπροεδρ υπουργικ γραφει εισηγης υφυπουργ
+Number of significant words: 403
+
+Theme 73:
+Top Words: παρατας κατοικι προσωριν ληξ δικαιουχ μεχρι προθεσμι ετ χρονικ στεγ
+Number of significant words: 613
+
+Theme 74:
+Top Words: εμ ειμαστ ολ εχουμ ειπαμ συμφωνουμ θελουμ λεμ εδω αυτ
+Number of significant words: 300
+
+Theme 75:
+Top Words: εκκλησι γλωσς ταυτοτητ μακεδονι σκοπι ακουσουμ θρησκευτικ ιερ μακεδονικ ονομασι
+Number of significant words: 586
+
+Theme 76:
+Top Words: της δημοκρατικ δημοκρατι ελευθερι πολιτικ αυτ λα ιστορικ θεσμ ιστορι
+Number of significant words: 1042
+
+Theme 77:
+Top Words: απο ερωτης διαδικασι υπουργει οποι εχ αποφας αυτ συγκεκρι απαντης
+Number of significant words: 933
+
+Theme 78:
+Top Words: αεροδρομι ναρκωτικ ολυμπιακ αεροπορι αεροπλαν αεροπορικ προληψ χρηστ αεροσκαφ της
+Number of significant words: 484
+
+Theme 79:
+Top Words: γυναικ χρυς αυγ βι ανδρ ισοτητ φυλ ις της διακρις
+Number of significant words: 417
+
+Theme 80:
+Top Words: επιτροπ της διαρκ συστας εκθες εξεταστικ υποθεσε πορισμ ολομελει αρμοδι
+Number of significant words: 227
+
+Theme 81:
+Top Words: αδει προεδρικ αυθαιρετ διαταγμ διαταγματ πολεοδομικ χωροταξικ δομης σχεδι περιβαλλοντικ
+Number of significant words: 674
+
+Theme 82:
+Top Words: συμβας συμφωνι κυρως της υπογραφ μεταξυ συνεργασι ελληνικ πρωτοκολλ υπογραψ
+Number of significant words: 356
+
+Theme 83:
+Top Words: προγραμμ προγραμματ γιατι αυτ κεντρ βοηθει πρεπ εινα σωστ οργανισμ
+Number of significant words: 557
+
+Theme 84:
+Top Words: θεμ προβλημ οτ εινα καμι θεματ εχ υπαρχ προβληματ δικ
+Number of significant words: 491
+
+Theme 85:
+Top Words: λετ αυτ εινα τωρα λε πειτ δωστ καν καντ ψεματ
+Number of significant words: 153
+
+Theme 86:
+Top Words: ζημι αποζημιως καταστροφ αποκαταστας ητ ελγ σεισμ πληγ υποστ περιοχ
+Number of significant words: 629
+
+Theme 87:
+Top Words: προσφυγ συνορ ασυλ μεταναστευτικ ρο μεταναστ υποδοχ προσφυγικ μεταναστευς εβρ
+Number of significant words: 598
+
+Theme 88:
+Top Words: εταιρει μετοχ χρηματιστηρι ανωνυμ κεφαλαι δημοσι της ιδιωτικοποιης επιχειρης επενδυτ
+Number of significant words: 604
+
+Theme 89:
+Top Words: θεσσαλονικ αθην αρς ασυλι της αυτοκινητ επαρχι πρωτευους βουλευτ αθηναι
+Number of significant words: 273
+
+Theme 90:
+Top Words: κωδικ φυλακ ποινικ ποιν κρατουμεν εγκληματ αδικηματ σωφρονιστικ καταστηματ αδικημ
+Number of significant words: 654
+
+Theme 91:
+Top Words: οργανως συνεταιρισμ συνεταιριστικ ετσι εινα οργανωσε ελεγκτ ατ εκκαθαρις κινημ
+Number of significant words: 367
+
+Theme 92:
+Top Words: καθολου ουτ πως σοβαρ λιγ θεματ ακουμ βλεπουμ εινα ακουσαμ
+Number of significant words: 295
+
+Theme 93:
+Top Words: μνημονι συριζα μνημονιακ τσιπρ χωρ δανειστ σαμαρ διαπραγματευς συγκυβερνης τροικα
+Number of significant words: 1039
+
+Theme 94:
+Top Words: μεταφορ οδικ δικτυ συγκοινωνι ατυχηματ κυκλοφορι λεωφορει αυτοκινητ ντροπ οχηματ
+Number of significant words: 570
+
+Theme 95:
+Top Words: ερευν πρακτικ εφημεριδ στ πληροφορι στοιχει τεχνολογι καταθετ καταθες εγγραφ
+Number of significant words: 434
+
+Theme 96:
+Top Words: προτας αναθεωρης ειπ ελεγκτικ συνεδρι αυτ προτειν προτεινουμ συνταγματ δυσπιστι
+Number of significant words: 185
+
+Theme 97:
+Top Words: ενημερως τηλεορας ερτ μαζικ δημοσιογραφ καναλι τηλεοπτικ σταθμ διαφημις υπαρχ
+Number of significant words: 436
+
+Theme 98:
+Top Words: περιουσι ακινητ φαρμακ φαρμακευτικ δημοσι μεταβιβας περιουσιακ αξι αξιοποιης φαρμακοποι
+Number of significant words: 494
+
+Theme 99:
+Top Words: νερ διαχειρις αποβλητ απορριμματ περιβαλλοντικ ποταμ περιβαλλοντ υδατ ευδαπ ανακυκλως
+Number of significant words: 637
+
+Theme 100:
+Top Words: μεταναστ αλλοδαπ ποι παρανομ νομιμ ιθαγενει εισοδ λαθρομεταναστ πιστοποιητικ εινα
+Number of significant words: 415
+
